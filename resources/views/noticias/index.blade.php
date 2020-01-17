@@ -27,7 +27,7 @@
                         <!-- el titulo es el campo que queremos se traiga-->
                         <td>{{$noticia->titulo}}</td>
                         <td>
-                            <button>Ver mas</button>
+                            <a href="{{route('noticias.show',$noticia->id)}}">Ver mas</a>
                         </td>
                     </tr>
                 @endforeach

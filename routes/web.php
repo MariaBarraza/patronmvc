@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 //url, nombre de la clase@nombre de la funcion que va a responder
 Route::get('/noticias','NoticiaController@index');
+
+Route::get('/noticias/{id}','NoticiaController@show')->name('noticias.show');

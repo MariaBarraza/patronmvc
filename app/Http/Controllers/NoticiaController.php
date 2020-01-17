@@ -23,4 +23,8 @@ class NoticiaController extends Controller
         //la vista acepta el nombre de la vista y los argumentos
         return view('noticias.index',$argumentos);
     }
+
+    public function show(){
+        
+    }
 }
