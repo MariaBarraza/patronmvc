@@ -24,6 +24,7 @@
             <tr>
                 @foreach($noticias as $noticia)
                     <tr>
+                        <!-- el titulo es el campo que queremos se traiga-->
                         <td>{{$noticia->titulo}}</td>
                         <td>
                             <button>Ver mas</button>
