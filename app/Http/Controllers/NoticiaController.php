@@ -24,7 +24,13 @@ class NoticiaController extends Controller
         return view('noticias.index',$argumentos);
     }
 
-    public function show(){
-        
+    public function show($id){
+        //Busca un registro a partir de la llave primaria Select * from noticias where id = 4
+        $noticia = Noticia::find($id);
+
+        $argumentos = array();
+        $argumentos['noticia'] = $noticia;
+
+        return view('noticias.show',$argumentos);
     }
 }
