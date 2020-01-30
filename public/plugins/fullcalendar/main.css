@@ -549,7 +549,7 @@ a.fc-more:hover {
 }
 
 /*
-TODO: more distinction between this file and common.css
+TODO: more /distinction between this file and common.css
 */
 /* Colors
 --------------------------------------------------------------------------------------------------*/
@@ -902,7 +902,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
   /* don't force a min-height on rows (for DayGrid) */
   .fc tbody .fc-row {
     height: auto !important;
-    /* undo height that JS set in distributeHeight */
+    /* undo height that JS set in /distributeHeight */
     min-height: 0 !important;
     /* undo the min-height from each view's specific stylesheet */
   }

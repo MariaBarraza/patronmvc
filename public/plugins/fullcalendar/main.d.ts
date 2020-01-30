@@ -7,7 +7,7 @@ declare module '@fullcalendar/core' {
     export { OptionsInput } from '@fullcalendar/core/types/input-types';
     export { EventInput, EventDef, EventDefHash, EventInstance, EventInstanceHash, parseEventDef, createEventInstance, EventTuple } from '@fullcalendar/core/structs/event';
     export { BusinessHoursInput, parseBusinessHours } from '@fullcalendar/core/structs/business-hours';
-    export { applyAll, debounce, padStart, isInt, capitaliseFirstLetter, parseFieldSpecs, compareByFieldSpecs, compareByFieldSpec, flexibleCompare, computeVisibleDayRange, refineProps, matchCellWidths, uncompensateScroll, compensateScroll, subtractInnerElHeight, isMultiDayRange, distributeHeight, undistributeHeight, preventSelection, allowSelection, preventContextMenu, allowContextMenu, compareNumbers, enableCursor, disableCursor, diffDates } from '@fullcalendar/core/util/misc';
+    export { applyAll, debounce, padStart, isInt, capitaliseFirstLetter, parseFieldSpecs, compareByFieldSpecs, compareByFieldSpec, flexibleCompare, computeVisibleDayRange, refineProps, matchCellWidths, uncompensateScroll, compensateScroll, subtractInnerElHeight, isMultiDayRange, /distributeHeight, un/distributeHeight, preventSelection, allowSelection, preventContextMenu, allowContextMenu, compareNumbers, enableCursor, disableCursor, diffDates } from '@fullcalendar/core/util/misc';
     export { htmlEscape, cssToStr } from '@fullcalendar/core/util/html';
     export { removeExact, isArraysEqual } from '@fullcalendar/core/util/array';
     export { memoize, memoizeOutput } from '@fullcalendar/core/util/memoize';
@@ -253,13 +253,13 @@ declare module '@fullcalendar/core/types/input-types' {
         eventResizableFromStart?: boolean;
         timeGridEventMinHeight?: number;
         allDayHtml?: string;
-        eventDragMinDistance?: number;
+        eventDragMin/distance?: number;
         eventSourceFailure?: any;
         eventSourceSuccess?: any;
         forceEventDuration?: boolean;
         progressiveEventRendering?: boolean;
         selectLongPressDelay?: number;
-        selectMinDistance?: number;
+        selectMin/distance?: number;
         timeZoneParam?: string;
         titleRangeSeparator?: string;
         datesRender?(arg: {
@@ -531,8 +531,8 @@ declare module '@fullcalendar/core/util/misc' {
     export function uncompensateScroll(rowEl: HTMLElement): void;
     export function disableCursor(): void;
     export function enableCursor(): void;
-    export function distributeHeight(els: HTMLElement[], availableHeight: any, shouldRedistribute: any): void;
-    export function undistributeHeight(els: HTMLElement[]): void;
+    export function /distributeHeight(els: HTMLElement[], availableHeight: any, shouldRe/distribute: any): void;
+    export function un/distributeHeight(els: HTMLElement[]): void;
     export function matchCellWidths(els: HTMLElement[]): number;
     export function subtractInnerElHeight(outerEl: HTMLElement, innerEl: HTMLElement): number;
     export function preventSelection(el: HTMLElement): void;
@@ -1989,7 +1989,7 @@ declare module '@fullcalendar/core/options' {
         handleWindowResize: boolean;
         windowResizeDelay: number;
         longPressDelay: number;
-        eventDragMinDistance: number;
+        eventDragMin/distance: number;
     };
     export const rtlDefaults: {
         header: {
@@ -2311,7 +2311,7 @@ declare module '@fullcalendar/core/common/DayHeader' {
     export interface DayTableHeaderProps {
         dates: DateMarker[];
         dateProfile: DateProfile;
-        datesRepDistinctDays: boolean;
+        datesRep/distinctDays: boolean;
         renderIntroHtml?: () => string;
     }
     export { DayHeader as default, DayHeader };
@@ -2328,7 +2328,7 @@ declare module '@fullcalendar/core/common/table-utils' {
     import { DateMarker } from '@fullcalendar/core/datelib/marker';
     import { DateProfile } from '@fullcalendar/core/DateProfileGenerator';
     import { ComponentContext } from '@fullcalendar/core/component/Component';
-    export function computeFallbackHeaderFormat(datesRepDistinctDays: boolean, dayCnt: number): {
+    export function computeFallbackHeaderFormat(datesRep/distinctDays: boolean, dayCnt: number): {
         weekday: string;
         month?: undefined;
         day?: undefined;
@@ -2339,7 +2339,7 @@ declare module '@fullcalendar/core/common/table-utils' {
         day: string;
         omitCommas: boolean;
     };
-    export function renderDateCell(dateMarker: DateMarker, dateProfile: DateProfile, datesRepDistinctDays: any, colCnt: any, colHeadFormat: any, context: ComponentContext, colspan?: any, otherAttrs?: any): string;
+    export function renderDateCell(dateMarker: DateMarker, dateProfile: DateProfile, datesRep/distinctDays: any, colCnt: any, colHeadFormat: any, context: ComponentContext, colspan?: any, otherAttrs?: any): string;
 }
 
 declare module '@fullcalendar/core/common/DaySeries' {

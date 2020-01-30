@@ -788,9 +788,9 @@ Docs & License: https://fullcalendar.io/
     }
     // Given a total available height to fill, have `els` (essentially child rows) expand to accomodate.
     // By default, all elements that are shorter than the recommended height are expanded uniformly, not considering
-    // any other els that are already too tall. if `shouldRedistribute` is on, it considers these tall rows and
+    // any other els that are already too tall. if `shouldRe/distribute` is on, it considers these tall rows and
     // reduces the available height.
-    function distributeHeight(els, availableHeight, shouldRedistribute) {
+    function /distributeHeight(els, availableHeight, shouldRe/distribute) {
         // *FLOORING NOTE*: we floor in certain places because zoom can give inaccurate floating-point dimensions,
         // and it is better to be shorter than taller, to avoid creating unnecessary scrollbars.
         var minOffset1 = Math.floor(availableHeight / els.length); // for non-last element
@@ -799,7 +799,7 @@ Docs & License: https://fullcalendar.io/
         var flexOffsets = []; // amount of vertical space it takes up
         var flexHeights = []; // actual css height
         var usedHeight = 0;
-        undistributeHeight(els); // give all elements their natural height
+        un/distributeHeight(els); // give all elements their natural height
         // find elements that are below the recommended height (expandable).
         // important to query for heights in a single first pass (to avoid reflow oscillation).
         els.forEach(function (el, i) {
@@ -817,7 +817,7 @@ Docs & License: https://fullcalendar.io/
             }
         });
         // readjust the recommended height to only consider the height available to non-maxed-out rows.
-        if (shouldRedistribute) {
+        if (shouldRe/distribute) {
             availableHeight -= usedHeight;
             minOffset1 = Math.floor(availableHeight / flexEls.length);
             minOffset2 = Math.floor(availableHeight - minOffset1 * (flexEls.length - 1)); // *FLOORING NOTE*
@@ -828,13 +828,13 @@ Docs & License: https://fullcalendar.io/
             var naturalOffset = flexOffsets[i];
             var naturalHeight = flexHeights[i];
             var newHeight = minOffset - (naturalOffset - naturalHeight); // subtract the margin/padding
-            if (naturalOffset < minOffset) { // we check this again because redistribution might have changed things
+            if (naturalOffset < minOffset) { // we check this again because re/distribution might have changed things
                 el.style.height = newHeight + 'px';
             }
         });
     }
-    // Undoes distrubuteHeight, restoring all els to their natural height
-    function undistributeHeight(els) {
+    // Undoes /distrubuteHeight, restoring all els to their natural height
+    function un/distributeHeight(els) {
         els.forEach(function (el) {
             el.style.height = '';
         });
@@ -4514,7 +4514,7 @@ Docs & License: https://fullcalendar.io/
         allDayMaintainDuration: false,
         // selectable: false,
         unselectAuto: true,
-        // selectMinDistance: 0,
+        // selectMin/distance: 0,
         dropAccept: '*',
         eventOrder: 'start,-duration,allDay,title',
         // ^ if start tie, longer events go before shorter. final tie-breaker is title text
@@ -4525,7 +4525,7 @@ Docs & License: https://fullcalendar.io/
         handleWindowResize: true,
         windowResizeDelay: 100,
         longPressDelay: 1000,
-        eventDragMinDistance: 5 // only applies to mouse
+        eventDragMin/distance: 5 // only applies to mouse
     };
     var rtlDefaults = {
         header: {
@@ -8181,10 +8181,10 @@ Docs & License: https://fullcalendar.io/
     }
 
     // Computes a default column header formatting string if `colFormat` is not explicitly defined
-    function computeFallbackHeaderFormat(datesRepDistinctDays, dayCnt) {
+    function computeFallbackHeaderFormat(datesRep/distinctDays, dayCnt) {
         // if more than one week row, or if there are a lot of columns with not much space,
         // put just the day numbers will be in each cell
-        if (!datesRepDistinctDays || dayCnt > 10) {
+        if (!datesRep/distinctDays || dayCnt > 10) {
             return { weekday: 'short' }; // "Sat"
         }
         else if (dayCnt > 1) {
@@ -8194,7 +8194,7 @@ Docs & License: https://fullcalendar.io/
             return { weekday: 'long' }; // "Saturday"
         }
     }
-    function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, colHeadFormat, context, colspan, otherAttrs) {
+    function renderDateCell(dateMarker, dateProfile, datesRep/distinctDays, colCnt, colHeadFormat, context, colspan, otherAttrs) {
         var view = context.view, dateEnv = context.dateEnv, theme = context.theme, options = context.options;
         var isDateValid = rangeContainsMarker(dateProfile.activeRange, dateMarker); // TODO: called too frequently. cache somehow.
         var classNames = [
@@ -8212,7 +8212,7 @@ Docs & License: https://fullcalendar.io/
             innerHtml = htmlEscape(dateEnv.format(dateMarker, colHeadFormat));
         }
         // if only one row of days, the classNames on the header can represent the specific days beneath
-        if (datesRepDistinctDays) {
+        if (datesRep/distinctDays) {
             classNames = classNames.concat(
             // includes the day-of-week class
             // noThemeHighlight=true (don't highlight the header)
@@ -8223,7 +8223,7 @@ Docs & License: https://fullcalendar.io/
         }
         return '' +
             '<th class="' + classNames.join(' ') + '"' +
-            ((isDateValid && datesRepDistinctDays) ?
+            ((isDateValid && datesRep/distinctDays) ?
                 ' data-date="' + dateEnv.formatIso(dateMarker, { omitTime: true }) + '"' :
                 '') +
             (colspan > 1 ?
@@ -8235,7 +8235,7 @@ Docs & License: https://fullcalendar.io/
             '>' +
             (isDateValid ?
                 // don't make a link if the heading could represent multiple days, or if there's only one day (forceOff)
-                buildGotoAnchorHtml(view, { date: dateMarker, forceOff: !datesRepDistinctDays || colCnt === 1 }, innerHtml) :
+                buildGotoAnchorHtml(view, { date: dateMarker, forceOff: !datesRep/distinctDays || colCnt === 1 }, innerHtml) :
                 // if not valid, display text, but no link
                 innerHtml) +
             '</th>';
@@ -8258,16 +8258,16 @@ Docs & License: https://fullcalendar.io/
             removeElement(this.el);
         };
         DayHeader.prototype.render = function (props) {
-            var dates = props.dates, datesRepDistinctDays = props.datesRepDistinctDays;
+            var dates = props.dates, datesRep/distinctDays = props.datesRep/distinctDays;
             var parts = [];
             if (props.renderIntroHtml) {
                 parts.push(props.renderIntroHtml());
             }
             var colHeadFormat = createFormatter(this.opt('columnHeaderFormat') ||
-                computeFallbackHeaderFormat(datesRepDistinctDays, dates.length));
+                computeFallbackHeaderFormat(datesRep/distinctDays, dates.length));
             for (var _i = 0, dates_1 = dates; _i < dates_1.length; _i++) {
                 var date = dates_1[_i];
-                parts.push(renderDateCell(date, props.dateProfile, datesRepDistinctDays, dates.length, colHeadFormat, this.context));
+                parts.push(renderDateCell(date, props.dateProfile, datesRep/distinctDays, dates.length, colHeadFormat, this.context));
             }
             if (this.isRtl) {
                 parts.reverse();
@@ -8633,7 +8633,7 @@ Docs & License: https://fullcalendar.io/
     exports.diffWholeDays = diffWholeDays;
     exports.diffWholeWeeks = diffWholeWeeks;
     exports.disableCursor = disableCursor;
-    exports.distributeHeight = distributeHeight;
+    exports./distributeHeight = /distributeHeight;
     exports.elementClosest = elementClosest;
     exports.elementMatches = elementMatches;
     exports.enableCursor = enableCursor;
@@ -8706,7 +8706,7 @@ Docs & License: https://fullcalendar.io/
     exports.subtractInnerElHeight = subtractInnerElHeight;
     exports.translateRect = translateRect;
     exports.uncompensateScroll = uncompensateScroll;
-    exports.undistributeHeight = undistributeHeight;
+    exports.un/distributeHeight = un/distributeHeight;
     exports.unpromisify = unpromisify;
     exports.version = version;
     exports.whenTransitionDone = whenTransitionDone;

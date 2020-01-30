@@ -479,14 +479,14 @@
              * Copyright Â© 2001 Robert Penner
              * All rights reserved.
              * 
-             * Redistribution and use in source and binary forms, with or without modification, 
+             * Re/distribution and use in source and binary forms, with or without modification, 
              * are permitted provided that the following conditions are met:
              * 
-             * Redistributions of source code must retain the above copyright notice, this list of 
+             * Re/distributions of source code must retain the above copyright notice, this list of 
              * conditions and the following disclaimer.
-             * Redistributions in binary form must reproduce the above copyright notice, this list 
+             * Re/distributions in binary form must reproduce the above copyright notice, this list 
              * of conditions and the following disclaimer in the documentation and/or other materials 
-             * provided with the distribution.
+             * provided with the /distribution.
              * 
              * Neither the name of the author nor the names of contributors may be used to endorse 
              * or promote products derived from this software without specific prior written permission.
@@ -4696,7 +4696,7 @@
                     }
                     function onTrackMouseTouchDown(event) {
                         if (onMouseTouchDownContinue(event)) {
-                            var scrollDistance = MATH.round(_viewportSize[scrollbarVars._w_h]);
+                            var scroll/distance = MATH.round(_viewportSize[scrollbarVars._w_h]);
                             var trackOffset = scrollbarVars._track.offset()[scrollbarVars._left_top];
                             var ctrlKey = event.ctrlKey;
                             var instantScroll = event.shiftKey;
@@ -4777,7 +4777,7 @@
                                         else {
                                             trackTimeout = setTimeout(scrollAction, timeoutDelay);
 
-                                            scrollObj[xy] = (decreaseScroll ? '-=' : '+=') + scrollDistance;
+                                            scrollObj[xy] = (decreaseScroll ? '-=' : '+=') + scroll/distance;
                                             _base.scroll(scrollObj, extendDeep(animationObj, {
                                                 duration: scrollDuration
                                             }));

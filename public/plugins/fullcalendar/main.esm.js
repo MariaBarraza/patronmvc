@@ -782,9 +782,9 @@ function enableCursor() {
 }
 // Given a total available height to fill, have `els` (essentially child rows) expand to accomodate.
 // By default, all elements that are shorter than the recommended height are expanded uniformly, not considering
-// any other els that are already too tall. if `shouldRedistribute` is on, it considers these tall rows and
+// any other els that are already too tall. if `shouldRe/distribute` is on, it considers these tall rows and
 // reduces the available height.
-function distributeHeight(els, availableHeight, shouldRedistribute) {
+function /distributeHeight(els, availableHeight, shouldRe/distribute) {
     // *FLOORING NOTE*: we floor in certain places because zoom can give inaccurate floating-point dimensions,
     // and it is better to be shorter than taller, to avoid creating unnecessary scrollbars.
     var minOffset1 = Math.floor(availableHeight / els.length); // for non-last element
@@ -793,7 +793,7 @@ function distributeHeight(els, availableHeight, shouldRedistribute) {
     var flexOffsets = []; // amount of vertical space it takes up
     var flexHeights = []; // actual css height
     var usedHeight = 0;
-    undistributeHeight(els); // give all elements their natural height
+    un/distributeHeight(els); // give all elements their natural height
     // find elements that are below the recommended height (expandable).
     // important to query for heights in a single first pass (to avoid reflow oscillation).
     els.forEach(function (el, i) {
@@ -811,7 +811,7 @@ function distributeHeight(els, availableHeight, shouldRedistribute) {
         }
     });
     // readjust the recommended height to only consider the height available to non-maxed-out rows.
-    if (shouldRedistribute) {
+    if (shouldRe/distribute) {
         availableHeight -= usedHeight;
         minOffset1 = Math.floor(availableHeight / flexEls.length);
         minOffset2 = Math.floor(availableHeight - minOffset1 * (flexEls.length - 1)); // *FLOORING NOTE*
@@ -822,13 +822,13 @@ function distributeHeight(els, availableHeight, shouldRedistribute) {
         var naturalOffset = flexOffsets[i];
         var naturalHeight = flexHeights[i];
         var newHeight = minOffset - (naturalOffset - naturalHeight); // subtract the margin/padding
-        if (naturalOffset < minOffset) { // we check this again because redistribution might have changed things
+        if (naturalOffset < minOffset) { // we check this again because re/distribution might have changed things
             el.style.height = newHeight + 'px';
         }
     });
 }
-// Undoes distrubuteHeight, restoring all els to their natural height
-function undistributeHeight(els) {
+// Undoes /distrubuteHeight, restoring all els to their natural height
+function un/distributeHeight(els) {
     els.forEach(function (el) {
         el.style.height = '';
     });
@@ -4508,7 +4508,7 @@ var globalDefaults = {
     allDayMaintainDuration: false,
     // selectable: false,
     unselectAuto: true,
-    // selectMinDistance: 0,
+    // selectMin/distance: 0,
     dropAccept: '*',
     eventOrder: 'start,-duration,allDay,title',
     // ^ if start tie, longer events go before shorter. final tie-breaker is title text
@@ -4519,7 +4519,7 @@ var globalDefaults = {
     handleWindowResize: true,
     windowResizeDelay: 100,
     longPressDelay: 1000,
-    eventDragMinDistance: 5 // only applies to mouse
+    eventDragMin/distance: 5 // only applies to mouse
 };
 var rtlDefaults = {
     header: {
@@ -8175,10 +8175,10 @@ function parseDragMeta(raw) {
 }
 
 // Computes a default column header formatting string if `colFormat` is not explicitly defined
-function computeFallbackHeaderFormat(datesRepDistinctDays, dayCnt) {
+function computeFallbackHeaderFormat(datesRep/distinctDays, dayCnt) {
     // if more than one week row, or if there are a lot of columns with not much space,
     // put just the day numbers will be in each cell
-    if (!datesRepDistinctDays || dayCnt > 10) {
+    if (!datesRep/distinctDays || dayCnt > 10) {
         return { weekday: 'short' }; // "Sat"
     }
     else if (dayCnt > 1) {
@@ -8188,7 +8188,7 @@ function computeFallbackHeaderFormat(datesRepDistinctDays, dayCnt) {
         return { weekday: 'long' }; // "Saturday"
     }
 }
-function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, colHeadFormat, context, colspan, otherAttrs) {
+function renderDateCell(dateMarker, dateProfile, datesRep/distinctDays, colCnt, colHeadFormat, context, colspan, otherAttrs) {
     var view = context.view, dateEnv = context.dateEnv, theme = context.theme, options = context.options;
     var isDateValid = rangeContainsMarker(dateProfile.activeRange, dateMarker); // TODO: called too frequently. cache somehow.
     var classNames = [
@@ -8206,7 +8206,7 @@ function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, c
         innerHtml = htmlEscape(dateEnv.format(dateMarker, colHeadFormat));
     }
     // if only one row of days, the classNames on the header can represent the specific days beneath
-    if (datesRepDistinctDays) {
+    if (datesRep/distinctDays) {
         classNames = classNames.concat(
         // includes the day-of-week class
         // noThemeHighlight=true (don't highlight the header)
@@ -8217,7 +8217,7 @@ function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, c
     }
     return '' +
         '<th class="' + classNames.join(' ') + '"' +
-        ((isDateValid && datesRepDistinctDays) ?
+        ((isDateValid && datesRep/distinctDays) ?
             ' data-date="' + dateEnv.formatIso(dateMarker, { omitTime: true }) + '"' :
             '') +
         (colspan > 1 ?
@@ -8229,7 +8229,7 @@ function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, c
         '>' +
         (isDateValid ?
             // don't make a link if the heading could represent multiple days, or if there's only one day (forceOff)
-            buildGotoAnchorHtml(view, { date: dateMarker, forceOff: !datesRepDistinctDays || colCnt === 1 }, innerHtml) :
+            buildGotoAnchorHtml(view, { date: dateMarker, forceOff: !datesRep/distinctDays || colCnt === 1 }, innerHtml) :
             // if not valid, display text, but no link
             innerHtml) +
         '</th>';
@@ -8252,16 +8252,16 @@ var DayHeader = /** @class */ (function (_super) {
         removeElement(this.el);
     };
     DayHeader.prototype.render = function (props) {
-        var dates = props.dates, datesRepDistinctDays = props.datesRepDistinctDays;
+        var dates = props.dates, datesRep/distinctDays = props.datesRep/distinctDays;
         var parts = [];
         if (props.renderIntroHtml) {
             parts.push(props.renderIntroHtml());
         }
         var colHeadFormat = createFormatter(this.opt('columnHeaderFormat') ||
-            computeFallbackHeaderFormat(datesRepDistinctDays, dates.length));
+            computeFallbackHeaderFormat(datesRep/distinctDays, dates.length));
         for (var _i = 0, dates_1 = dates; _i < dates_1.length; _i++) {
             var date = dates_1[_i];
-            parts.push(renderDateCell(date, props.dateProfile, datesRepDistinctDays, dates.length, colHeadFormat, this.context));
+            parts.push(renderDateCell(date, props.dateProfile, datesRep/distinctDays, dates.length, colHeadFormat, this.context));
         }
         if (this.isRtl) {
             parts.reverse();
@@ -8555,4 +8555,4 @@ function computeActiveRange(dateProfile, isComponentAllDay) {
 // --------------------------------------------------------------------------------------------------
 var version = '4.3.1';
 
-export { Calendar, Component, DateComponent, DateEnv, DateProfileGenerator, DayHeader, DaySeries, DayTable, ElementDragging, ElementScrollController, EmitterMixin, EventApi, FgEventRenderer, FillRenderer, Interaction, Mixin, NamedTimeZoneImpl, PositionCache, ScrollComponent, ScrollController, Slicer, Splitter, Theme, View, WindowScrollController, addDays, addDurations, addMs, addWeeks, allowContextMenu, allowSelection, appendToElement, applyAll, applyMutationToEventStore, applyStyle, applyStyleProp, asRoughMinutes, asRoughMs, asRoughSeconds, buildGotoAnchorHtml, buildSegCompareObj, capitaliseFirstLetter, combineEventUis, compareByFieldSpec, compareByFieldSpecs, compareNumbers, compensateScroll, computeClippingRect, computeEdges, computeFallbackHeaderFormat, computeHeightAndMargins, computeInnerRect, computeRect, computeVisibleDayRange, config, constrainPoint, createDuration, createElement, createEmptyEventStore, createEventInstance, createFormatter, createPlugin, cssToStr, debounce, diffDates, diffDayAndTime, diffDays, diffPoints, diffWeeks, diffWholeDays, diffWholeWeeks, disableCursor, distributeHeight, elementClosest, elementMatches, enableCursor, eventTupleToStore, filterEventStoreDefs, filterHash, findChildren, findElements, flexibleCompare, forceClassName, formatDate, formatIsoTimeString, formatRange, getAllDayHtml, getClippingParents, getDayClasses, getElSeg, getRectCenter, getRelevantEvents, globalDefaults, greatestDurationDenominator, hasBgRendering, htmlEscape, htmlToElement, insertAfterElement, interactionSettingsStore, interactionSettingsToStore, intersectRanges, intersectRects, isArraysEqual, isDateSpansEqual, isInt, isInteractionValid, isMultiDayRange, isPropsEqual, isPropsValid, isSingleDay, isValidDate, listenBySelector, mapHash, matchCellWidths, memoize, memoizeOutput, memoizeRendering, mergeEventStores, multiplyDuration, padStart, parseBusinessHours, parseDragMeta, parseEventDef, parseFieldSpecs, parse as parseMarker, pointInsideRect, prependToElement, preventContextMenu, preventDefault, preventSelection, processScopedUiProps, rangeContainsMarker, rangeContainsRange, rangesEqual, rangesIntersect, refineProps, removeElement, removeExact, renderDateCell, requestJson, sliceEventStore, startOfDay, subtractInnerElHeight, translateRect, uncompensateScroll, undistributeHeight, unpromisify, version, whenTransitionDone, wholeDivideDurations };
+export { Calendar, Component, DateComponent, DateEnv, DateProfileGenerator, DayHeader, DaySeries, DayTable, ElementDragging, ElementScrollController, EmitterMixin, EventApi, FgEventRenderer, FillRenderer, Interaction, Mixin, NamedTimeZoneImpl, PositionCache, ScrollComponent, ScrollController, Slicer, Splitter, Theme, View, WindowScrollController, addDays, addDurations, addMs, addWeeks, allowContextMenu, allowSelection, appendToElement, applyAll, applyMutationToEventStore, applyStyle, applyStyleProp, asRoughMinutes, asRoughMs, asRoughSeconds, buildGotoAnchorHtml, buildSegCompareObj, capitaliseFirstLetter, combineEventUis, compareByFieldSpec, compareByFieldSpecs, compareNumbers, compensateScroll, computeClippingRect, computeEdges, computeFallbackHeaderFormat, computeHeightAndMargins, computeInnerRect, computeRect, computeVisibleDayRange, config, constrainPoint, createDuration, createElement, createEmptyEventStore, createEventInstance, createFormatter, createPlugin, cssToStr, debounce, diffDates, diffDayAndTime, diffDays, diffPoints, diffWeeks, diffWholeDays, diffWholeWeeks, disableCursor, /distributeHeight, elementClosest, elementMatches, enableCursor, eventTupleToStore, filterEventStoreDefs, filterHash, findChildren, findElements, flexibleCompare, forceClassName, formatDate, formatIsoTimeString, formatRange, getAllDayHtml, getClippingParents, getDayClasses, getElSeg, getRectCenter, getRelevantEvents, globalDefaults, greatestDurationDenominator, hasBgRendering, htmlEscape, htmlToElement, insertAfterElement, interactionSettingsStore, interactionSettingsToStore, intersectRanges, intersectRects, isArraysEqual, isDateSpansEqual, isInt, isInteractionValid, isMultiDayRange, isPropsEqual, isPropsValid, isSingleDay, isValidDate, listenBySelector, mapHash, matchCellWidths, memoize, memoizeOutput, memoizeRendering, mergeEventStores, multiplyDuration, padStart, parseBusinessHours, parseDragMeta, parseEventDef, parseFieldSpecs, parse as parseMarker, pointInsideRect, prependToElement, preventContextMenu, preventDefault, preventSelection, processScopedUiProps, rangeContainsMarker, rangeContainsRange, rangesEqual, rangesIntersect, refineProps, removeElement, removeExact, renderDateCell, requestJson, sliceEventStore, startOfDay, subtractInnerElHeight, translateRect, uncompensateScroll, un/distributeHeight, unpromisify, version, whenTransitionDone, wholeDivideDurations };

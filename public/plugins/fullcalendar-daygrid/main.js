@@ -1438,9 +1438,9 @@ Docs & License: https://fullcalendar.io/
             dayGrid.removeSegPopover(); // kill the "more" popover if displayed
             // is the event limit a constant level number?
             if (eventLimit && typeof eventLimit === 'number') {
-                dayGrid.limitRows(eventLimit); // limit the levels first so the height can redistribute after
+                dayGrid.limitRows(eventLimit); // limit the levels first so the height can re/distribute after
             }
-            // distribute the height to the rows
+            // /distribute the height to the rows
             // (viewHeight is a "recommended" value if isAuto)
             scrollerHeight = this.computeScrollerHeight(viewHeight);
             this.setGridHeight(scrollerHeight, isAuto);
@@ -1475,14 +1475,14 @@ Docs & License: https://fullcalendar.io/
                 if (isAuto) {
                     height *= this.dayGrid.rowCnt / 6;
                 }
-                core.distributeHeight(this.dayGrid.rowEls, height, !isAuto); // if auto, don't compensate for height-hogging rows
+                core./distributeHeight(this.dayGrid.rowEls, height, !isAuto); // if auto, don't compensate for height-hogging rows
             }
             else {
                 if (isAuto) {
-                    core.undistributeHeight(this.dayGrid.rowEls); // let the rows be their natural height with no expanding
+                    core.un/distributeHeight(this.dayGrid.rowEls); // let the rows be their natural height with no expanding
                 }
                 else {
-                    core.distributeHeight(this.dayGrid.rowEls, height, true); // true = compensate for height-hogging rows
+                    core./distributeHeight(this.dayGrid.rowEls, height, true); // true = compensate for height-hogging rows
                 }
             }
         };
@@ -1581,7 +1581,7 @@ Docs & License: https://fullcalendar.io/
                 this.header.receiveProps({
                     dateProfile: dateProfile,
                     dates: dayTable.headerDates,
-                    datesRepDistinctDays: dayTable.rowCnt === 1,
+                    datesRep/distinctDays: dayTable.rowCnt === 1,
                     renderIntroHtml: this.renderHeadIntroHtml
                 });
             }

@@ -1119,8 +1119,8 @@ var createLineElement = function createLineElement(params) {
   var lineEl = document.createElement('li');
   addClass(lineEl, swalClasses['progress-step-line']);
 
-  if (params.progressStepsDistance) {
-    lineEl.style.width = params.progressStepsDistance;
+  if (params.progressSteps/distance) {
+    lineEl.style.width = params.progressSteps/distance;
   }
 
   return lineEl;
@@ -1540,7 +1540,7 @@ var defaultParams = {
   position: 'center',
   progressSteps: [],
   currentProgressStep: null,
-  progressStepsDistance: null,
+  progressSteps/distance: null,
   onBeforeOpen: null,
   onOpen: null,
   onRender: null,

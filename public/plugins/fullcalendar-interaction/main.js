@@ -663,9 +663,9 @@ Docs & License: https://fullcalendar.io/
         AutoScroller.prototype.handleSide = function (edge, seconds) {
             var scrollCache = edge.scrollCache;
             var edgeThreshold = this.edgeThreshold;
-            var invDistance = edgeThreshold - edge.distance;
+            var inv/distance = edgeThreshold - edge./distance;
             var velocity = // the closer to the edge, the faster we scroll
-             (invDistance * invDistance) / (edgeThreshold * edgeThreshold) * // quadratic
+             (inv/distance * inv/distance) / (edgeThreshold * edgeThreshold) * // quadratic
                 this.maxVelocity * seconds;
             var sign = 1;
             switch (edge.name) {
@@ -690,27 +690,27 @@ Docs & License: https://fullcalendar.io/
             for (var _i = 0, _a = this.scrollCaches; _i < _a.length; _i++) {
                 var scrollCache = _a[_i];
                 var rect = scrollCache.clientRect;
-                var leftDist = left - rect.left;
-                var rightDist = rect.right - left;
-                var topDist = top - rect.top;
-                var bottomDist = rect.bottom - top;
+                var left/dist = left - rect.left;
+                var right/dist = rect.right - left;
+                var top/dist = top - rect.top;
+                var bottom/dist = rect.bottom - top;
                 // completely within the rect?
-                if (leftDist >= 0 && rightDist >= 0 && topDist >= 0 && bottomDist >= 0) {
-                    if (topDist <= edgeThreshold && this.everMovedUp && scrollCache.canScrollUp() &&
-                        (!bestSide || bestSide.distance > topDist)) {
-                        bestSide = { scrollCache: scrollCache, name: 'top', distance: topDist };
+                if (left/dist >= 0 && right/dist >= 0 && top/dist >= 0 && bottom/dist >= 0) {
+                    if (top/dist <= edgeThreshold && this.everMovedUp && scrollCache.canScrollUp() &&
+                        (!bestSide || bestSide./distance > top/dist)) {
+                        bestSide = { scrollCache: scrollCache, name: 'top', /distance: top/dist };
                     }
-                    if (bottomDist <= edgeThreshold && this.everMovedDown && scrollCache.canScrollDown() &&
-                        (!bestSide || bestSide.distance > bottomDist)) {
-                        bestSide = { scrollCache: scrollCache, name: 'bottom', distance: bottomDist };
+                    if (bottom/dist <= edgeThreshold && this.everMovedDown && scrollCache.canScrollDown() &&
+                        (!bestSide || bestSide./distance > bottom/dist)) {
+                        bestSide = { scrollCache: scrollCache, name: 'bottom', /distance: bottom/dist };
                     }
-                    if (leftDist <= edgeThreshold && this.everMovedLeft && scrollCache.canScrollLeft() &&
-                        (!bestSide || bestSide.distance > leftDist)) {
-                        bestSide = { scrollCache: scrollCache, name: 'left', distance: leftDist };
+                    if (left/dist <= edgeThreshold && this.everMovedLeft && scrollCache.canScrollLeft() &&
+                        (!bestSide || bestSide./distance > left/dist)) {
+                        bestSide = { scrollCache: scrollCache, name: 'left', /distance: left/dist };
                     }
-                    if (rightDist <= edgeThreshold && this.everMovedRight && scrollCache.canScrollRight() &&
-                        (!bestSide || bestSide.distance > rightDist)) {
-                        bestSide = { scrollCache: scrollCache, name: 'right', distance: rightDist };
+                    if (right/dist <= edgeThreshold && this.everMovedRight && scrollCache.canScrollRight() &&
+                        (!bestSide || bestSide./distance > right/dist)) {
+                        bestSide = { scrollCache: scrollCache, name: 'right', /distance: right/dist };
                     }
                 }
             }
@@ -744,7 +744,7 @@ Docs & License: https://fullcalendar.io/
 
     /*
     Monitors dragging on an element. Has a number of high-level features:
-    - minimum distance required before dragging
+    - minimum /distance required before dragging
     - minimum wait time ("delay") before dragging
     - a mirror element that follows the pointer
     */
@@ -755,19 +755,19 @@ Docs & License: https://fullcalendar.io/
             // options that can be directly set by caller
             // the caller can also set the PointerDragging's options as well
             _this.delay = null;
-            _this.minDistance = 0;
+            _this.min/distance = 0;
             _this.touchScrollAllowed = true; // prevents drag from starting and blocks scrolling during drag
             _this.mirrorNeedsRevert = false;
             _this.isInteracting = false; // is the user validly moving the pointer? lasts until pointerup
             _this.isDragging = false; // is it INTENTFULLY dragging? lasts until after revert animation
             _this.isDelayEnded = false;
-            _this.isDistanceSurpassed = false;
+            _this.is/distanceSurpassed = false;
             _this.delayTimeoutId = null;
             _this.onPointerDown = function (ev) {
                 if (!_this.isDragging) { // so new drag doesn't happen while revert animation is going
                     _this.isInteracting = true;
                     _this.isDelayEnded = false;
-                    _this.isDistanceSurpassed = false;
+                    _this.is/distanceSurpassed = false;
                     core.preventSelection(document.body);
                     core.preventContextMenu(document.body);
                     // prevent links from being visited if there's an eventual drag.
@@ -782,8 +782,8 @@ Docs & License: https://fullcalendar.io/
                         _this.mirror.setIsVisible(false); // reset. caller must set-visible
                         _this.mirror.start(ev.subjectEl, ev.pageX, ev.pageY); // must happen on first pointer down
                         _this.startDelay(ev);
-                        if (!_this.minDistance) {
-                            _this.handleDistanceSurpassed(ev);
+                        if (!_this.min/distance) {
+                            _this.handle/distanceSurpassed(ev);
                         }
                     }
                 }
@@ -791,13 +791,13 @@ Docs & License: https://fullcalendar.io/
             _this.onPointerMove = function (ev) {
                 if (_this.isInteracting) { // if false, still waiting for previous drag's revert
                     _this.emitter.trigger('pointermove', ev);
-                    if (!_this.isDistanceSurpassed) {
-                        var minDistance = _this.minDistance;
-                        var distanceSq = void 0; // current distance from the origin, squared
+                    if (!_this.is/distanceSurpassed) {
+                        var min/distance = _this.min/distance;
+                        var /distanceSq = void 0; // current /distance from the origin, squared
                         var deltaX = ev.deltaX, deltaY = ev.deltaY;
-                        distanceSq = deltaX * deltaX + deltaY * deltaY;
-                        if (distanceSq >= minDistance * minDistance) { // use pythagorean theorem
-                            _this.handleDistanceSurpassed(ev);
+                        /distanceSq = deltaX * deltaX + deltaY * deltaY;
+                        if (/distanceSq >= min/distance * min/distance) { // use pythagorean theorem
+                            _this.handle/distanceSurpassed(ev);
                         }
                     }
                     if (_this.isDragging) {
@@ -853,12 +853,12 @@ Docs & License: https://fullcalendar.io/
             this.isDelayEnded = true;
             this.tryStartDrag(ev);
         };
-        FeaturefulElementDragging.prototype.handleDistanceSurpassed = function (ev) {
-            this.isDistanceSurpassed = true;
+        FeaturefulElementDragging.prototype.handle/distanceSurpassed = function (ev) {
+            this.is/distanceSurpassed = true;
             this.tryStartDrag(ev);
         };
         FeaturefulElementDragging.prototype.tryStartDrag = function (ev) {
-            if (this.isDelayEnded && this.isDistanceSurpassed) {
+            if (this.isDelayEnded && this.is/distanceSurpassed) {
                 if (!this.pointer.wasTouchScroll || this.touchScrollAllowed) {
                     this.isDragging = true;
                     this.mirrorNeedsRevert = false;
@@ -1211,7 +1211,7 @@ Docs & License: https://fullcalendar.io/
             var component = settings.component;
             var dragging = _this.dragging = new FeaturefulElementDragging(component.el);
             dragging.touchScrollAllowed = false;
-            dragging.minDistance = component.opt('selectMinDistance') || 0;
+            dragging.min/distance = component.opt('selectMin/distance') || 0;
             dragging.autoScroller.isEnabled = component.opt('dragScroll');
             var hitDragging = _this.hitDragging = new HitDragging(_this.dragging, core.interactionSettingsToStore(settings));
             hitDragging.emitter.on('pointerdown', _this.handlePointerDown);
@@ -1279,7 +1279,7 @@ Docs & License: https://fullcalendar.io/
                 var eventRange = _this.eventRange = subjectSeg.eventRange;
                 var eventInstanceId = eventRange.instance.instanceId;
                 _this.relevantEvents = core.getRelevantEvents(initialCalendar.state.eventStore, eventInstanceId);
-                dragging.minDistance = ev.isTouch ? 0 : component.opt('eventDragMinDistance');
+                dragging.min/distance = ev.isTouch ? 0 : component.opt('eventDragMin/distance');
                 dragging.delay =
                     // only do a touch delay if touch and this event hasn't been selected yet
                     (ev.isTouch && eventInstanceId !== component.props.eventSelection) ?
@@ -1591,7 +1591,7 @@ Docs & License: https://fullcalendar.io/
                 var component = _this.component;
                 var seg = _this.querySeg(ev);
                 var eventRange = _this.eventRange = seg.eventRange;
-                _this.dragging.minDistance = component.opt('eventDragMinDistance');
+                _this.dragging.min/distance = component.opt('eventDragMin/distance');
                 // if touch, need to be working with a selected event
                 _this.dragging.setIgnoreMove(!_this.component.isValidSegDownEl(ev.origEvent.target) ||
                     (ev.isTouch && _this.component.props.eventSelection !== eventRange.instance.instanceId));
@@ -1989,11 +1989,11 @@ Docs & License: https://fullcalendar.io/
             if (settings === void 0) { settings = {}; }
             this.handlePointerDown = function (ev) {
                 var dragging = _this.dragging;
-                var _a = _this.settings, minDistance = _a.minDistance, longPressDelay = _a.longPressDelay;
-                dragging.minDistance =
-                    minDistance != null ?
-                        minDistance :
-                        (ev.isTouch ? 0 : core.globalDefaults.eventDragMinDistance);
+                var _a = _this.settings, min/distance = _a.min/distance, longPressDelay = _a.longPressDelay;
+                dragging.min/distance =
+                    min/distance != null ?
+                        min/distance :
+                        (ev.isTouch ? 0 : core.globalDefaults.eventDragMin/distance);
                 dragging.delay =
                     ev.isTouch ? // TODO: eventually read eventLongPressDelay instead vvv
                         (longPressDelay != null ? longPressDelay : core.globalDefaults.longPressDelay) :
@@ -2041,7 +2041,7 @@ Docs & License: https://fullcalendar.io/
             _this.handlePointerDown = function (ev) {
                 _this.emitter.trigger('pointerdown', ev);
                 if (!_this.shouldIgnoreMove) {
-                    // fire dragstart right away. does not support delay or min-distance
+                    // fire dragstart right away. does not support delay or min-/distance
                     _this.emitter.trigger('dragstart', ev);
                 }
             };

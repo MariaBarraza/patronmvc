@@ -4357,7 +4357,7 @@ module.exports = function (it) {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -5477,7 +5477,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -5827,7 +5827,7 @@ exports.f = __webpack_require__(9) ? gOPD : function getOwnPropertyDescriptor(O,
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -7040,7 +7040,7 @@ function Data(source, dest) {
   this.destLen = 0;
   
   this.ltree = new Tree();  /* dynamic length/symbol tree */
-  this.dtree = new Tree();  /* dynamic distance tree */
+  this.dtree = new Tree();  /* dynamic /distance tree */
 }
 
 /* --------------------------------------------------- *
@@ -7054,9 +7054,9 @@ var sdtree = new Tree();
 var length_bits = new Uint8Array(30);
 var length_base = new Uint16Array(30);
 
-/* extra bits and base tables for distance codes */
-var dist_bits = new Uint8Array(30);
-var dist_base = new Uint16Array(30);
+/* extra bits and base tables for /distance codes */
+var /dist_bits = new Uint8Array(30);
+var /dist_base = new Uint16Array(30);
 
 /* special ordering of code length codes */
 var clcidx = new Uint8Array([
@@ -7104,7 +7104,7 @@ function tinf_build_fixed_trees(lt, dt) {
   for (i = 0; i < 8; ++i) lt.trans[24 + 144 + i] = 280 + i;
   for (i = 0; i < 112; ++i) lt.trans[24 + 144 + 8 + i] = 144 + i;
 
-  /* build fixed distance tree */
+  /* build fixed /distance tree */
   for (i = 0; i < 5; ++i) dt.table[i] = 0;
 
   dt.table[5] = 32;
@@ -7126,7 +7126,7 @@ function tinf_build_tree(t, lengths, off, num) {
 
   t.table[0] = 0;
 
-  /* compute offset table for distribution sort */
+  /* compute offset table for /distribution sort */
   for (sum = 0, i = 0; i < 16; ++i) {
     offs[i] = sum;
     sum += t.table[i];
@@ -7202,14 +7202,14 @@ function tinf_decode_symbol(d, t) {
 
 /* given a data stream, decode dynamic trees from it */
 function tinf_decode_trees(d, lt, dt) {
-  var hlit, hdist, hclen;
+  var hlit, h/dist, hclen;
   var i, num, length;
 
   /* get 5 bits HLIT (257-286) */
   hlit = tinf_read_bits(d, 5, 257);
 
-  /* get 5 bits HDIST (1-32) */
-  hdist = tinf_read_bits(d, 5, 1);
+  /* get 5 bits H/dist (1-32) */
+  h/dist = tinf_read_bits(d, 5, 1);
 
   /* get 4 bits HCLEN (4-19) */
   hclen = tinf_read_bits(d, 4, 4);
@@ -7227,7 +7227,7 @@ function tinf_decode_trees(d, lt, dt) {
   tinf_build_tree(code_tree, lengths, 0, 19);
 
   /* decode code lengths for the dynamic trees */
-  for (num = 0; num < hlit + hdist;) {
+  for (num = 0; num < hlit + h/dist;) {
     var sym = tinf_decode_symbol(d, code_tree);
 
     switch (sym) {
@@ -7259,7 +7259,7 @@ function tinf_decode_trees(d, lt, dt) {
 
   /* build dynamic trees */
   tinf_build_tree(lt, lengths, 0, hlit);
-  tinf_build_tree(dt, lengths, hlit, hdist);
+  tinf_build_tree(dt, lengths, hlit, h/dist);
 }
 
 /* ----------------------------- *
@@ -7279,7 +7279,7 @@ function tinf_inflate_block_data(d, lt, dt) {
     if (sym < 256) {
       d.dest[d.destLen++] = sym;
     } else {
-      var length, dist, offs;
+      var length, /dist, offs;
       var i;
 
       sym -= 257;
@@ -7287,10 +7287,10 @@ function tinf_inflate_block_data(d, lt, dt) {
       /* possibly get more bits from length code */
       length = tinf_read_bits(d, length_bits[sym], length_base[sym]);
 
-      dist = tinf_decode_symbol(d, dt);
+      /dist = tinf_decode_symbol(d, dt);
 
-      /* possibly get more bits from distance code */
-      offs = d.destLen - tinf_read_bits(d, dist_bits[dist], dist_base[dist]);
+      /* possibly get more bits from /distance code */
+      offs = d.destLen - tinf_read_bits(d, /dist_bits[/dist], /dist_base[/dist]);
 
       /* copy match */
       for (i = offs; i < offs + length; ++i) {
@@ -7390,7 +7390,7 @@ tinf_build_fixed_trees(sltree, sdtree);
 
 /* build extra bits and base tables */
 tinf_build_bits_base(length_bits, length_base, 4, 3);
-tinf_build_bits_base(dist_bits, dist_base, 2, 1);
+tinf_build_bits_base(/dist_bits, /dist_base, 2, 1);
 
 /* fix a special case */
 length_bits[28] = 0;
@@ -7935,7 +7935,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -8082,7 +8082,7 @@ exports.PassThrough = __webpack_require__(260);
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -8776,7 +8776,7 @@ Writable.prototype._destroy = function (err, cb) {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -9077,7 +9077,7 @@ function simpleEnd(buf) {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -9729,7 +9729,7 @@ exports.promisify.custom = kCustomPromisifiedSymbol
 function callbackifyOnRejected(reason, cb) {
   // `!reason` guard inspired by bluebird (Ref: https://goo.gl/t5IS6M).
   // Because `null` is a special error value in callbacks which means "no error
-  // occurred", we error-wrap so the callback consumer can distinguish between
+  // occurred", we error-wrap so the callback consumer can /distinguish between
   // "the promise rejected with null" or "the promise fulfilled with undefined".
   if (!reason) {
     var newReason = new Error('Promise was rejected with a falsy value');
@@ -12821,7 +12821,7 @@ setToStringTag(global.JSON, 'JSON', true);
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -13934,7 +13934,7 @@ module.exports = {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -14822,7 +14822,7 @@ function isBuffer(b) {
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the 'Software'), to
 // deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// rights to use, copy, modify, merge, publish, /distribute, sublicense, and/or
 // sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
@@ -15292,7 +15292,7 @@ var objectKeys = Object.keys || function (obj) {
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -15301,7 +15301,7 @@ var objectKeys = Object.keys || function (obj) {
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 function adler32(adler, buf, len, pos) {
   var s1 = (adler & 0xffff) |0,
@@ -15350,7 +15350,7 @@ module.exports = adler32;
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -15359,7 +15359,7 @@ module.exports = adler32;
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 // Use ordinary array, since untyped makes no boost here
 function makeTable() {
@@ -16955,7 +16955,7 @@ module.exports = UnicodeTrie;
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -16977,7 +16977,7 @@ var kNumLiteralCodes = 256;
 var kNumInsertAndCopyCodes = 704;
 var kNumBlockLengthCodes = 26;
 var kLiteralContextBits = 6;
-var kDistanceContextBits = 2;
+var k/distanceContextBits = 2;
 
 var HUFFMAN_TABLE_BITS = 8;
 var HUFFMAN_TABLE_MASK = 0xff;
@@ -16990,12 +16990,12 @@ var kCodeLengthCodeOrder = new Uint8Array([
   1, 2, 3, 4, 0, 5, 17, 6, 16, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 ]);
 
-var NUM_DISTANCE_SHORT_CODES = 16;
-var kDistanceShortCodeIndexOffset = new Uint8Array([
+var NUM_/distANCE_SHORT_CODES = 16;
+var k/distanceShortCodeIndexOffset = new Uint8Array([
   3, 2, 1, 0, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2
 ]);
 
-var kDistanceShortCodeValueOffset = new Int8Array([
+var k/distanceShortCodeValueOffset = new Int8Array([
   0, 0, 0, 0, -1, 1, -2, 2, -3, 3, -1, 1, -2, 2, -3, 3
 ]);
 
@@ -17293,12 +17293,12 @@ function ReadBlockLength(table, index, br) {
 
 function TranslateShortCodes(code, ringbuffer, index) {
   var val;
-  if (code < NUM_DISTANCE_SHORT_CODES) {
-    index += kDistanceShortCodeIndexOffset[code];
+  if (code < NUM_/distANCE_SHORT_CODES) {
+    index += k/distanceShortCodeIndexOffset[code];
     index &= 3;
-    val = ringbuffer[index] + kDistanceShortCodeValueOffset[code];
+    val = ringbuffer[index] + k/distanceShortCodeValueOffset[code];
   } else {
-    val = code - NUM_DISTANCE_SHORT_CODES + 1;
+    val = code - NUM_/distANCE_SHORT_CODES + 1;
   }
   return val;
 }
@@ -17544,16 +17544,16 @@ function BrotliDecompress(input, output) {
   var pos = 0;
   var input_end = 0;
   var window_bits = 0;
-  var max_backward_distance;
-  var max_distance = 0;
+  var max_backward_/distance;
+  var max_/distance = 0;
   var ringbuffer_size;
   var ringbuffer_mask;
   var ringbuffer;
   var ringbuffer_end;
-  /* This ring buffer holds a few past copy distances that will be used by */
-  /* some special distance codes. */
-  var dist_rb = [ 16, 15, 11, 4 ];
-  var dist_rb_idx = 0;
+  /* This ring buffer holds a few past copy /distances that will be used by */
+  /* some special /distance codes. */
+  var /dist_rb = [ 16, 15, 11, 4 ];
+  var /dist_rb_idx = 0;
   /* The previous 2 bytes used for context. */
   var prev_byte1 = 0;
   var prev_byte2 = 0;
@@ -17572,7 +17572,7 @@ function BrotliDecompress(input, output) {
 
   /* Decode window size. */
   window_bits = DecodeWindowBits(br);
-  max_backward_distance = (1 << window_bits) - 16;
+  max_backward_/distance = (1 << window_bits) - 16;
 
   ringbuffer_size = 1 << window_bits;
   ringbuffer_mask = ringbuffer_size - 1;
@@ -17594,21 +17594,21 @@ function BrotliDecompress(input, output) {
     var num_block_types = [ 1, 1, 1 ];
     var block_type_rb = [ 0, 1, 0, 1, 0, 1 ];
     var block_type_rb_index = [ 0 ];
-    var distance_postfix_bits;
-    var num_direct_distance_codes;
-    var distance_postfix_mask;
-    var num_distance_codes;
+    var /distance_postfix_bits;
+    var num_direct_/distance_codes;
+    var /distance_postfix_mask;
+    var num_/distance_codes;
     var context_map = null;
     var context_modes = null;
     var num_literal_htrees;
-    var dist_context_map = null;
-    var num_dist_htrees;
+    var /dist_context_map = null;
+    var num_/dist_htrees;
     var context_offset = 0;
     var context_map_slice = null;
     var literal_htree_index = 0;
-    var dist_context_offset = 0;
-    var dist_context_map_slice = null;
-    var dist_htree_index = 0;
+    var /dist_context_offset = 0;
+    var /dist_context_map_slice = null;
+    var /dist_htree_index = 0;
     var context_lookup_offset1 = 0;
     var context_lookup_offset2 = 0;
     var context_mode;
@@ -17668,10 +17668,10 @@ function BrotliDecompress(input, output) {
     
     br.readMoreInput();
     
-    distance_postfix_bits = br.readBits(2);
-    num_direct_distance_codes = NUM_DISTANCE_SHORT_CODES + (br.readBits(4) << distance_postfix_bits);
-    distance_postfix_mask = (1 << distance_postfix_bits) - 1;
-    num_distance_codes = (num_direct_distance_codes + (48 << distance_postfix_bits));
+    /distance_postfix_bits = br.readBits(2);
+    num_direct_/distance_codes = NUM_/distANCE_SHORT_CODES + (br.readBits(4) << /distance_postfix_bits);
+    /distance_postfix_mask = (1 << /distance_postfix_bits) - 1;
+    num_/distance_codes = (num_direct_/distance_codes + (48 << /distance_postfix_bits));
     context_modes = new Uint8Array(num_block_types[0]);
 
     for (i = 0; i < num_block_types[0]; ++i) {
@@ -17683,20 +17683,20 @@ function BrotliDecompress(input, output) {
     num_literal_htrees = _o1.num_htrees;
     context_map = _o1.context_map;
     
-    var _o2 = DecodeContextMap(num_block_types[2] << kDistanceContextBits, br);
-    num_dist_htrees = _o2.num_htrees;
-    dist_context_map = _o2.context_map;
+    var _o2 = DecodeContextMap(num_block_types[2] << k/distanceContextBits, br);
+    num_/dist_htrees = _o2.num_htrees;
+    /dist_context_map = _o2.context_map;
     
     hgroup[0] = new HuffmanTreeGroup(kNumLiteralCodes, num_literal_htrees);
     hgroup[1] = new HuffmanTreeGroup(kNumInsertAndCopyCodes, num_block_types[1]);
-    hgroup[2] = new HuffmanTreeGroup(num_distance_codes, num_dist_htrees);
+    hgroup[2] = new HuffmanTreeGroup(num_/distance_codes, num_/dist_htrees);
 
     for (i = 0; i < 3; ++i) {
       hgroup[i].decode(br);
     }
 
     context_map_slice = 0;
-    dist_context_map_slice = 0;
+    /dist_context_map_slice = 0;
     context_mode = context_modes[block_type[0]];
     context_lookup_offset1 = Context.lookupOffsets[context_mode];
     context_lookup_offset2 = Context.lookupOffsets[context_mode + 1];
@@ -17709,8 +17709,8 @@ function BrotliDecompress(input, output) {
       var copy_code;
       var insert_length;
       var copy_length;
-      var distance_code;
-      var distance;
+      var /distance_code;
+      var /distance;
       var context;
       var j;
       var copy_dst;
@@ -17729,9 +17729,9 @@ function BrotliDecompress(input, output) {
       range_idx = cmd_code >> 6;
       if (range_idx >= 2) {
         range_idx -= 2;
-        distance_code = -1;
+        /distance_code = -1;
       } else {
-        distance_code = 0;
+        /distance_code = 0;
       }
       insert_code = Prefix.kInsertRangeLut[range_idx] + ((cmd_code >> 3) & 7);
       copy_code = Prefix.kCopyRangeLut[range_idx] + (cmd_code & 7);
@@ -17770,7 +17770,7 @@ function BrotliDecompress(input, output) {
       meta_block_remaining_len -= insert_length;
       if (meta_block_remaining_len <= 0) break;
 
-      if (distance_code < 0) {
+      if (/distance_code < 0) {
         var context;
         
         br.readMoreInput();
@@ -17779,49 +17779,49 @@ function BrotliDecompress(input, output) {
                           block_type_trees, 2, block_type, block_type_rb,
                           block_type_rb_index, br);
           block_length[2] = ReadBlockLength(block_len_trees, 2 * HUFFMAN_MAX_TABLE_SIZE, br);
-          dist_context_offset = block_type[2] << kDistanceContextBits;
-          dist_context_map_slice = dist_context_offset;
+          /dist_context_offset = block_type[2] << k/distanceContextBits;
+          /dist_context_map_slice = /dist_context_offset;
         }
         --block_length[2];
         context = (copy_length > 4 ? 3 : copy_length - 2) & 0xff;
-        dist_htree_index = dist_context_map[dist_context_map_slice + context];
-        distance_code = ReadSymbol(hgroup[2].codes, hgroup[2].htrees[dist_htree_index], br);
-        if (distance_code >= num_direct_distance_codes) {
+        /dist_htree_index = /dist_context_map[/dist_context_map_slice + context];
+        /distance_code = ReadSymbol(hgroup[2].codes, hgroup[2].htrees[/dist_htree_index], br);
+        if (/distance_code >= num_direct_/distance_codes) {
           var nbits;
           var postfix;
           var offset;
-          distance_code -= num_direct_distance_codes;
-          postfix = distance_code & distance_postfix_mask;
-          distance_code >>= distance_postfix_bits;
-          nbits = (distance_code >> 1) + 1;
-          offset = ((2 + (distance_code & 1)) << nbits) - 4;
-          distance_code = num_direct_distance_codes +
+          /distance_code -= num_direct_/distance_codes;
+          postfix = /distance_code & /distance_postfix_mask;
+          /distance_code >>= /distance_postfix_bits;
+          nbits = (/distance_code >> 1) + 1;
+          offset = ((2 + (/distance_code & 1)) << nbits) - 4;
+          /distance_code = num_direct_/distance_codes +
               ((offset + br.readBits(nbits)) <<
-               distance_postfix_bits) + postfix;
+               /distance_postfix_bits) + postfix;
         }
       }
 
-      /* Convert the distance code to the actual distance by possibly looking */
-      /* up past distnaces from the ringbuffer. */
-      distance = TranslateShortCodes(distance_code, dist_rb, dist_rb_idx);
-      if (distance < 0) {
-        throw new Error('[BrotliDecompress] invalid distance');
+      /* Convert the /distance code to the actual /distance by possibly looking */
+      /* up past /distnaces from the ringbuffer. */
+      /distance = TranslateShortCodes(/distance_code, /dist_rb, /dist_rb_idx);
+      if (/distance < 0) {
+        throw new Error('[BrotliDecompress] invalid /distance');
       }
 
-      if (pos < max_backward_distance &&
-          max_distance !== max_backward_distance) {
-        max_distance = pos;
+      if (pos < max_backward_/distance &&
+          max_/distance !== max_backward_/distance) {
+        max_/distance = pos;
       } else {
-        max_distance = max_backward_distance;
+        max_/distance = max_backward_/distance;
       }
 
       copy_dst = pos & ringbuffer_mask;
 
-      if (distance > max_distance) {
+      if (/distance > max_/distance) {
         if (copy_length >= BrotliDictionary.minDictionaryWordLength &&
             copy_length <= BrotliDictionary.maxDictionaryWordLength) {
           var offset = BrotliDictionary.offsetsByLength[copy_length];
-          var word_id = distance - max_distance - 1;
+          var word_id = /distance - max_/distance - 1;
           var shift = BrotliDictionary.sizeBitsByLength[copy_length];
           var mask = (1 << shift) - 1;
           var word_idx = word_id & mask;
@@ -17839,26 +17839,26 @@ function BrotliDecompress(input, output) {
                 ringbuffer[_x] = ringbuffer[ringbuffer_end + _x];
             }
           } else {
-            throw new Error("Invalid backward reference. pos: " + pos + " distance: " + distance +
+            throw new Error("Invalid backward reference. pos: " + pos + " /distance: " + /distance +
               " len: " + copy_length + " bytes left: " + meta_block_remaining_len);
           }
         } else {
-          throw new Error("Invalid backward reference. pos: " + pos + " distance: " + distance +
+          throw new Error("Invalid backward reference. pos: " + pos + " /distance: " + /distance +
             " len: " + copy_length + " bytes left: " + meta_block_remaining_len);
         }
       } else {
-        if (distance_code > 0) {
-          dist_rb[dist_rb_idx & 3] = distance;
-          ++dist_rb_idx;
+        if (/distance_code > 0) {
+          /dist_rb[/dist_rb_idx & 3] = /distance;
+          ++/dist_rb_idx;
         }
 
         if (copy_length > meta_block_remaining_len) {
-          throw new Error("Invalid backward reference. pos: " + pos + " distance: " + distance +
+          throw new Error("Invalid backward reference. pos: " + pos + " /distance: " + /distance +
             " len: " + copy_length + " bytes left: " + meta_block_remaining_len);
         }
 
         for (j = 0; j < copy_length; ++j) {
-          ringbuffer[pos & ringbuffer_mask] = ringbuffer[(pos - distance) & ringbuffer_mask];
+          ringbuffer[pos & ringbuffer_mask] = ringbuffer[(pos - /distance) & ringbuffer_mask];
           if ((pos & ringbuffer_mask) === ringbuffer_mask) {
             output.write(ringbuffer, ringbuffer_size);
           }
@@ -17939,7 +17939,7 @@ exports.BrotliOutput = BrotliOutput;
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -22890,7 +22890,7 @@ var VectorMixin = {
     var numSegs = Math.ceil(Math.abs(deltaAng) / HALF_PI);
     var segAng = deltaAng / numSegs;
     var handleLen = segAng / HALF_PI * KAPPA * radius;
-    var curAng = startAngle; // component distances between anchor point and control point
+    var curAng = startAngle; // component /distances between anchor point and control point
 
     var deltaCx = -Math.sin(curAng) * handleLen;
     var deltaCy = Math.cos(curAng) * handleLen; // anchor point
@@ -27083,7 +27083,7 @@ function config (name) {
 // copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
 // without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
+// /distribute, sublicense, and/or sell copies of the Software, and to permit
 // persons to whom the Software is furnished to do so, subject to the
 // following conditions:
 //
@@ -27721,7 +27721,7 @@ if (typeof Object.create === 'function') {
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -27730,7 +27730,7 @@ if (typeof Object.create === 'function') {
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 function ZStream() {
   /* next input byte */
@@ -27775,7 +27775,7 @@ module.exports = ZStream;
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -27784,7 +27784,7 @@ module.exports = ZStream;
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 var utils   = __webpack_require__(71);
 var trees   = __webpack_require__(271);
@@ -27860,7 +27860,7 @@ var LITERALS      = 256;
 var L_CODES       = LITERALS + 1 + LENGTH_CODES;
 /* number of Literal or Length codes, including the END_BLOCK code */
 var D_CODES       = 30;
-/* number of distance codes */
+/* number of /distance codes */
 var BL_CODES      = 19;
 /* number of codes used to transfer the bit lengths */
 var HEAP_SIZE     = 2 * L_CODES + 1;
@@ -27992,7 +27992,7 @@ function read_buf(strm, buf, start, size) {
  * in which case the result is equal to prev_length and match_start is
  * garbage.
  * IN assertions: cur_match is the head of the hash chain for the current
- *   string (strstart) and its distance is <= MAX_DIST, and prev_length >= 1
+ *   string (strstart) and its /distance is <= MAX_/dist, and prev_length >= 1
  * OUT assertion: the match length is not greater than s->lookahead.
  */
 function longest_match(s, cur_match) {
@@ -28140,7 +28140,7 @@ function fill_window(s) {
       utils.arraySet(s.window, s.window, _w_size, _w_size, 0);
       s.match_start -= _w_size;
       s.strstart -= _w_size;
-      /* we now have strstart >= MAX_DIST */
+      /* we now have strstart >= MAX_/dist */
       s.block_start -= _w_size;
 
       /* Slide the hash table (could be avoided with 32 bit values
@@ -28174,9 +28174,9 @@ function fill_window(s) {
     }
 
     /* If there was no sliding:
-     *    strstart <= WSIZE+MAX_DIST-1 && lookahead <= MIN_LOOKAHEAD - 1 &&
+     *    strstart <= WSIZE+MAX_/dist-1 && lookahead <= MIN_LOOKAHEAD - 1 &&
      *    more == window_size - lookahead - strstart
-     * => more >= window_size - (MIN_LOOKAHEAD-1 + WSIZE + MAX_DIST-1)
+     * => more >= window_size - (MIN_LOOKAHEAD-1 + WSIZE + MAX_/dist-1)
      * => more >= window_size - 2*WSIZE + 2
      * In the BIG_MEM or MMAP case (not yet supported),
      *   window_size == input_size + MIN_LOOKAHEAD  &&
@@ -28279,7 +28279,7 @@ function deflate_stored(s, flush) {
     /* Fill the window as much as possible: */
     if (s.lookahead <= 1) {
 
-      //Assert(s->strstart < s->w_size+MAX_DIST(s) ||
+      //Assert(s->strstart < s->w_size+MAX_/dist(s) ||
       //  s->block_start >= (long)s->w_size, "slide too late");
 //      if (!(s.strstart < s.w_size + (s.w_size - MIN_LOOKAHEAD) ||
 //        s.block_start >= s.w_size)) {
@@ -28408,7 +28408,7 @@ function deflate_fast(s, flush) {
     if (s.match_length >= MIN_MATCH) {
       // check_match(s, s.strstart, s.match_start, s.match_length); // for debug only
 
-      /*** _tr_tally_dist(s, s.strstart - s.match_start,
+      /*** _tr_tally_/dist(s, s.strstart - s.match_start,
                      s.match_length - MIN_MATCH, bflush); ***/
       bflush = trees._tr_tally(s, s.strstart - s.match_start, s.match_length - MIN_MATCH);
 
@@ -28530,7 +28530,7 @@ function deflate_slow(s, flush) {
     s.match_length = MIN_MATCH - 1;
 
     if (hash_head !== 0/*NIL*/ && s.prev_length < s.max_lazy_match &&
-        s.strstart - hash_head <= (s.w_size - MIN_LOOKAHEAD)/*MAX_DIST(s)*/) {
+        s.strstart - hash_head <= (s.w_size - MIN_LOOKAHEAD)/*MAX_/dist(s)*/) {
       /* To simplify the code, we prevent matches with the string
        * of window index 0 (in particular we have to avoid a match
        * of the string with itself at the start of the input file).
@@ -28556,7 +28556,7 @@ function deflate_slow(s, flush) {
 
       //check_match(s, s.strstart-1, s.prev_match, s.prev_length);
 
-      /***_tr_tally_dist(s, s.strstart - 1 - s.prev_match,
+      /***_tr_tally_/dist(s, s.strstart - 1 - s.prev_match,
                      s.prev_length - MIN_MATCH, bflush);***/
       bflush = trees._tr_tally(s, s.strstart - 1 - s.prev_match, s.prev_length - MIN_MATCH);
       /* Insert in hash table all strings up to the end of the match.
@@ -28648,13 +28648,13 @@ function deflate_slow(s, flush) {
 
 
 /* ===========================================================================
- * For Z_RLE, simply look for runs of bytes, generate matches only of distance
+ * For Z_RLE, simply look for runs of bytes, generate matches only of /distance
  * one.  Do not maintain a hash table.  (It will be regenerated if this run of
  * deflate switches away from Z_RLE.)
  */
 function deflate_rle(s, flush) {
   var bflush;            /* set if current block must be flushed */
-  var prev;              /* byte at distance one to match */
+  var prev;              /* byte at /distance one to match */
   var scan, strend;      /* scan goes up to strend for length of run */
 
   var _win = s.window;
@@ -28698,7 +28698,7 @@ function deflate_rle(s, flush) {
     if (s.match_length >= MIN_MATCH) {
       //check_match(s, s.strstart, s.strstart - 1, s.match_length);
 
-      /*** _tr_tally_dist(s, 1, s.match_length - MIN_MATCH, bflush); ***/
+      /*** _tr_tally_/dist(s, 1, s.match_length - MIN_MATCH, bflush); ***/
       bflush = trees._tr_tally(s, 1, s.match_length - MIN_MATCH);
 
       s.lookahead -= s.match_length;
@@ -28876,7 +28876,7 @@ function DeflateState() {
   this.window = null;
   /* Sliding window. Input bytes are read into the second half of the window,
    * and move to the first half later to keep a dictionary of at least wSize
-   * bytes. With this organization, matches are limited to a distance of
+   * bytes. With this organization, matches are limited to a /distance of
    * wSize-MAX_MATCH bytes, but this ensures that IO is always
    * performed with a length multiple of the block size.
    */
@@ -28954,7 +28954,7 @@ function DeflateState() {
   /* Didn't use ct_data typedef below to suppress compiler warning */
 
   // struct ct_data_s dyn_ltree[HEAP_SIZE];   /* literal and length tree */
-  // struct ct_data_s dyn_dtree[2*D_CODES+1]; /* distance tree */
+  // struct ct_data_s dyn_dtree[2*D_CODES+1]; /* /distance tree */
   // struct ct_data_s bl_tree[2*BL_CODES+1];  /* Huffman tree for bit lengths */
 
   // Use flat array of DOUBLE size, with interleaved fata,
@@ -28967,7 +28967,7 @@ function DeflateState() {
   zero(this.bl_tree);
 
   this.l_desc   = null;         /* desc. for literal tree */
-  this.d_desc   = null;         /* desc. for distance tree */
+  this.d_desc   = null;         /* desc. for /distance tree */
   this.bl_desc  = null;         /* desc. for bit length tree */
 
   //ush bl_count[MAX_BITS+1];
@@ -29014,7 +29014,7 @@ function DeflateState() {
   this.last_lit = 0;      /* running index in l_buf */
 
   this.d_buf = 0;
-  /* Buffer index for distances. To simplify the code, d_buf and l_buf have
+  /* Buffer index for /distances. To simplify the code, d_buf and l_buf have
    * the same number of elements. To use different lengths, an extra flag
    * array would be necessary.
    */
@@ -29656,7 +29656,7 @@ exports.deflateTune = deflateTune;
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -29665,7 +29665,7 @@ exports.deflateTune = deflateTune;
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 /* eslint-disable space-unary-ops */
 
@@ -29718,7 +29718,7 @@ var L_CODES       = LITERALS + 1 + LENGTH_CODES;
 /* number of Literal or Length codes, including the END_BLOCK code */
 
 var D_CODES       = 30;
-/* number of distance codes */
+/* number of /distance codes */
 
 var BL_CODES      = 19;
 /* number of codes used to transfer the bit lengths */
@@ -29756,7 +29756,7 @@ var REPZ_11_138 = 18;
 var extra_lbits =   /* extra bits for each length code */
   [0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0];
 
-var extra_dbits =   /* extra bits for each distance code */
+var extra_dbits =   /* extra bits for each /distance code */
   [0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13];
 
 var extra_blbits =  /* extra bits for each bit length code */
@@ -29776,7 +29776,7 @@ var bl_order =
 
 // We pre-fill arrays with 0 to avoid uninitialized gaps
 
-var DIST_CODE_LEN = 512; /* see definition of array dist_code below */
+var /dist_CODE_LEN = 512; /* see definition of array /dist_code below */
 
 // !!!! Use flat array instead of structure, Freq = i*2, Len = i*2+1
 var static_ltree  = new Array((L_CODES + 2) * 2);
@@ -29789,15 +29789,15 @@ zero(static_ltree);
 
 var static_dtree  = new Array(D_CODES * 2);
 zero(static_dtree);
-/* The static distance tree. (Actually a trivial tree since all codes use
+/* The static /distance tree. (Actually a trivial tree since all codes use
  * 5 bits.)
  */
 
-var _dist_code    = new Array(DIST_CODE_LEN);
-zero(_dist_code);
-/* Distance codes. The first 256 values correspond to the distances
+var _/dist_code    = new Array(/dist_CODE_LEN);
+zero(_/dist_code);
+/* /distance codes. The first 256 values correspond to the /distances
  * 3 .. 258, the last 256 values correspond to the top 8 bits of
- * the 15 bit distances.
+ * the 15 bit /distances.
  */
 
 var _length_code  = new Array(MAX_MATCH - MIN_MATCH + 1);
@@ -29808,9 +29808,9 @@ var base_length   = new Array(LENGTH_CODES);
 zero(base_length);
 /* First normalized length for each code (0 = MIN_MATCH) */
 
-var base_dist     = new Array(D_CODES);
-zero(base_dist);
-/* First normalized distance for each code (0 = distance of 1) */
+var base_/dist     = new Array(D_CODES);
+zero(base_/dist);
+/* First normalized /distance for each code (0 = /distance of 1) */
 
 
 function StaticTreeDesc(static_tree, extra_bits, extra_base, elems, max_length) {
@@ -29839,8 +29839,8 @@ function TreeDesc(dyn_tree, stat_desc) {
 
 
 
-function d_code(dist) {
-  return dist < 256 ? _dist_code[dist] : _dist_code[256 + (dist >>> 7)];
+function d_code(/dist) {
+  return /dist < 256 ? _/dist_code[/dist] : _/dist_code[256 + (/dist >>> 7)];
 }
 
 
@@ -30028,7 +30028,7 @@ function gen_codes(tree, max_code, bl_count)
   var bits;                  /* bit index */
   var n;                     /* code index */
 
-  /* The distribution counts are first used to generate the code values
+  /* The /distribution counts are first used to generate the code values
    * without bit reversal.
    */
   for (bits = 1; bits <= MAX_BITS; bits++) {
@@ -30061,7 +30061,7 @@ function tr_static_init() {
   var bits;     /* bit counter */
   var length;   /* length value */
   var code;     /* code value */
-  var dist;     /* distance index */
+  var /dist;     /* /distance index */
   var bl_count = new Array(MAX_BITS + 1);
   /* number of codes at each bit length for an optimal tree */
 
@@ -30092,23 +30092,23 @@ function tr_static_init() {
    */
   _length_code[length - 1] = code;
 
-  /* Initialize the mapping dist (0..32K) -> dist code (0..29) */
-  dist = 0;
+  /* Initialize the mapping /dist (0..32K) -> /dist code (0..29) */
+  /dist = 0;
   for (code = 0; code < 16; code++) {
-    base_dist[code] = dist;
+    base_/dist[code] = /dist;
     for (n = 0; n < (1 << extra_dbits[code]); n++) {
-      _dist_code[dist++] = code;
+      _/dist_code[/dist++] = code;
     }
   }
-  //Assert (dist == 256, "tr_static_init: dist != 256");
-  dist >>= 7; /* from now on, all distances are divided by 128 */
+  //Assert (/dist == 256, "tr_static_init: /dist != 256");
+  /dist >>= 7; /* from now on, all /distances are divided by 128 */
   for (; code < D_CODES; code++) {
-    base_dist[code] = dist << 7;
+    base_/dist[code] = /dist << 7;
     for (n = 0; n < (1 << (extra_dbits[code] - 7)); n++) {
-      _dist_code[256 + dist++] = code;
+      _/dist_code[256 + /dist++] = code;
     }
   }
-  //Assert (dist == 256, "tr_static_init: 256+dist != 512");
+  //Assert (/dist == 256, "tr_static_init: 256+/dist != 512");
 
   /* Construct the codes of the static literal tree */
   for (bits = 0; bits <= MAX_BITS; bits++) {
@@ -30142,7 +30142,7 @@ function tr_static_init() {
    */
   gen_codes(static_ltree, L_CODES + 1, bl_count);
 
-  /* The static distance tree is trivial: */
+  /* The static /distance tree is trivial: */
   for (n = 0; n < D_CODES; n++) {
     static_dtree[n * 2 + 1]/*.Len*/ = 5;
     static_dtree[n * 2]/*.Code*/ = bi_reverse(n, 5);
@@ -30265,21 +30265,21 @@ function pqdownheap(s, tree, k)
 function compress_block(s, ltree, dtree)
 //    deflate_state *s;
 //    const ct_data *ltree; /* literal tree */
-//    const ct_data *dtree; /* distance tree */
+//    const ct_data *dtree; /* /distance tree */
 {
-  var dist;           /* distance of matched string */
-  var lc;             /* match length or unmatched char (if dist == 0) */
+  var /dist;           /* /distance of matched string */
+  var lc;             /* match length or unmatched char (if /dist == 0) */
   var lx = 0;         /* running index in l_buf */
   var code;           /* the code to send */
   var extra;          /* number of extra bits to send */
 
   if (s.last_lit !== 0) {
     do {
-      dist = (s.pending_buf[s.d_buf + lx * 2] << 8) | (s.pending_buf[s.d_buf + lx * 2 + 1]);
+      /dist = (s.pending_buf[s.d_buf + lx * 2] << 8) | (s.pending_buf[s.d_buf + lx * 2 + 1]);
       lc = s.pending_buf[s.l_buf + lx];
       lx++;
 
-      if (dist === 0) {
+      if (/dist === 0) {
         send_code(s, lc, ltree); /* send a literal byte */
         //Tracecv(isgraph(lc), (stderr," '%c' ", lc));
       } else {
@@ -30291,15 +30291,15 @@ function compress_block(s, ltree, dtree)
           lc -= base_length[code];
           send_bits(s, lc, extra);       /* send the extra length bits */
         }
-        dist--; /* dist is now the match distance - 1 */
-        code = d_code(dist);
+        /dist--; /* /dist is now the match /distance - 1 */
+        code = d_code(/dist);
         //Assert (code < D_CODES, "bad d_code");
 
-        send_code(s, code, dtree);       /* send the distance code */
+        send_code(s, code, dtree);       /* send the /distance code */
         extra = extra_dbits[code];
         if (extra !== 0) {
-          dist -= base_dist[code];
-          send_bits(s, dist, extra);   /* send the extra distance bits */
+          /dist -= base_/dist[code];
+          send_bits(s, /dist, extra);   /* send the extra /distance bits */
         }
       } /* literal or match pair ? */
 
@@ -30351,7 +30351,7 @@ function build_tree(s, desc)
     }
   }
 
-  /* The pkzip format requires that at least one distance code exists,
+  /* The pkzip format requires that at least one /distance code exists,
    * and that at least one bit should be sent even if there is only one
    * possible code. So to avoid special checks later on we force at least
    * two codes of non zero frequency.
@@ -30415,7 +30415,7 @@ function build_tree(s, desc)
 
 
 /* ===========================================================================
- * Scan a literal or distance tree to determine the frequencies of the codes
+ * Scan a literal or /distance tree to determine the frequencies of the codes
  * in the bit length tree.
  */
 function scan_tree(s, tree, max_code)
@@ -30481,7 +30481,7 @@ function scan_tree(s, tree, max_code)
 
 
 /* ===========================================================================
- * Send a literal or distance tree in compressed form, using the codes in
+ * Send a literal or /distance tree in compressed form, using the codes in
  * bl_tree.
  */
 function send_tree(s, tree, max_code)
@@ -30558,7 +30558,7 @@ function send_tree(s, tree, max_code)
 function build_bl_tree(s) {
   var max_blindex;  /* index of last bit length code of non zero freq */
 
-  /* Determine the bit length frequencies for literal and distance trees */
+  /* Determine the bit length frequencies for literal and /distance trees */
   scan_tree(s, s.dyn_ltree, s.l_desc.max_code);
   scan_tree(s, s.dyn_dtree, s.d_desc.max_code);
 
@@ -30588,7 +30588,7 @@ function build_bl_tree(s) {
 
 /* ===========================================================================
  * Send the header for a block using dynamic Huffman trees: the counts, the
- * lengths of the bit length codes, the literal tree and the distance tree.
+ * lengths of the bit length codes, the literal tree and the /distance tree.
  * IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
  */
 function send_all_trees(s, lcodes, dcodes, blcodes)
@@ -30613,8 +30613,8 @@ function send_all_trees(s, lcodes, dcodes, blcodes)
   send_tree(s, s.dyn_ltree, lcodes - 1); /* literal tree */
   //Tracev((stderr, "\nlit tree: sent %ld", s->bits_sent));
 
-  send_tree(s, s.dyn_dtree, dcodes - 1); /* distance tree */
-  //Tracev((stderr, "\ndist tree: sent %ld", s->bits_sent));
+  send_tree(s, s.dyn_dtree, dcodes - 1); /* /distance tree */
+  //Tracev((stderr, "\n/dist tree: sent %ld", s->bits_sent));
 }
 
 
@@ -30735,13 +30735,13 @@ function _tr_flush_block(s, buf, stored_len, last)
       s.strm.data_type = detect_data_type(s);
     }
 
-    /* Construct the literal and distance trees */
+    /* Construct the literal and /distance trees */
     build_tree(s, s.l_desc);
     // Tracev((stderr, "\nlit data: dyn %ld, stat %ld", s->opt_len,
     //        s->static_len));
 
     build_tree(s, s.d_desc);
-    // Tracev((stderr, "\ndist data: dyn %ld, stat %ld", s->opt_len,
+    // Tracev((stderr, "\n/dist data: dyn %ld, stat %ld", s->opt_len,
     //        s->static_len));
     /* At this point, opt_len and static_len are the total bit lengths of
      * the compressed block data, excluding the tree representations.
@@ -30805,32 +30805,32 @@ function _tr_flush_block(s, buf, stored_len, last)
  * Save the match info and tally the frequency counts. Return true if
  * the current block must be flushed.
  */
-function _tr_tally(s, dist, lc)
+function _tr_tally(s, /dist, lc)
 //    deflate_state *s;
-//    unsigned dist;  /* distance of matched string */
-//    unsigned lc;    /* match length-MIN_MATCH or unmatched char (if dist==0) */
+//    unsigned /dist;  /* /distance of matched string */
+//    unsigned lc;    /* match length-MIN_MATCH or unmatched char (if /dist==0) */
 {
   //var out_length, in_length, dcode;
 
-  s.pending_buf[s.d_buf + s.last_lit * 2]     = (dist >>> 8) & 0xff;
-  s.pending_buf[s.d_buf + s.last_lit * 2 + 1] = dist & 0xff;
+  s.pending_buf[s.d_buf + s.last_lit * 2]     = (/dist >>> 8) & 0xff;
+  s.pending_buf[s.d_buf + s.last_lit * 2 + 1] = /dist & 0xff;
 
   s.pending_buf[s.l_buf + s.last_lit] = lc & 0xff;
   s.last_lit++;
 
-  if (dist === 0) {
+  if (/dist === 0) {
     /* lc is the unmatched char */
     s.dyn_ltree[lc * 2]/*.Freq*/++;
   } else {
     s.matches++;
     /* Here, lc is the match length - MIN_MATCH */
-    dist--;             /* dist = match distance - 1 */
-    //Assert((ush)dist < (ush)MAX_DIST(s) &&
+    /dist--;             /* /dist = match /distance - 1 */
+    //Assert((ush)/dist < (ush)MAX_/dist(s) &&
     //       (ush)lc <= (ush)(MAX_MATCH-MIN_MATCH) &&
-    //       (ush)d_code(dist) < (ush)D_CODES,  "_tr_tally: bad match");
+    //       (ush)d_code(/dist) < (ush)D_CODES,  "_tr_tally: bad match");
 
     s.dyn_ltree[(_length_code[lc] + LITERALS + 1) * 2]/*.Freq*/++;
-    s.dyn_dtree[d_code(dist) * 2]/*.Freq*/++;
+    s.dyn_dtree[d_code(/dist) * 2]/*.Freq*/++;
   }
 
 // (!) This block is disabled in zlib defaults,
@@ -30885,7 +30885,7 @@ exports._tr_align = _tr_align;
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -30894,7 +30894,7 @@ exports._tr_align = _tr_align;
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 module.exports = {
   2:      'need dictionary',     /* Z_NEED_DICT       2  */
@@ -30924,7 +30924,7 @@ module.exports = {
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -30933,7 +30933,7 @@ module.exports = {
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 var utils         = __webpack_require__(71);
 var adler32       = __webpack_require__(169);
@@ -30943,7 +30943,7 @@ var inflate_table = __webpack_require__(275);
 
 var CODES = 0;
 var LENS = 1;
-var DISTS = 2;
+var /distS = 2;
 
 /* Public constants ==========================================================*/
 /* ===========================================================================*/
@@ -30998,12 +30998,12 @@ var        COPY_ = 15;     /* i/o: same as COPY below, but only first time in */
 var        COPY = 16;      /* i/o: waiting for input or output to copy stored block */
 var        TABLE = 17;     /* i: waiting for dynamic block table lengths */
 var        LENLENS = 18;   /* i: waiting for code length code lengths */
-var        CODELENS = 19;  /* i: waiting for length/lit and distance code lengths */
+var        CODELENS = 19;  /* i: waiting for length/lit and /distance code lengths */
 var            LEN_ = 20;      /* i: same as LEN below, but only first time in */
 var            LEN = 21;       /* i: waiting for length/lit/eob code */
 var            LENEXT = 22;    /* i: waiting for length extra bits */
-var            DIST = 23;      /* i: waiting for distance code */
-var            DISTEXT = 24;   /* i: waiting for distance extra bits */
+var            /dist = 23;      /* i: waiting for /distance code */
+var            /distEXT = 24;   /* i: waiting for /distance extra bits */
 var            MATCH = 25;     /* o: waiting for output space to copy string */
 var            LIT = 26;       /* o: waiting for output space to write literal */
 var    CHECK = 27;     /* i: waiting for 32-bit check value */
@@ -31018,8 +31018,8 @@ var    SYNC = 32;      /* looking for synchronization bytes to restart inflate()
 
 
 var ENOUGH_LENS = 852;
-var ENOUGH_DISTS = 592;
-//var ENOUGH =  (ENOUGH_LENS+ENOUGH_DISTS);
+var ENOUGH_/distS = 592;
+//var ENOUGH =  (ENOUGH_LENS+ENOUGH_/distS);
 
 var MAX_WBITS = 15;
 /* 32K LZ77 window */
@@ -31040,7 +31040,7 @@ function InflateState() {
   this.wrap = 0;              /* bit 0 true for zlib, bit 1 true for gzip */
   this.havedict = false;      /* true if dictionary provided */
   this.flags = 0;             /* gzip header method and flags (0 if zlib) */
-  this.dmax = 0;              /* zlib header max distance (INFLATE_STRICT) */
+  this.dmax = 0;              /* zlib header max /distance (INFLATE_STRICT) */
   this.check = 0;             /* protected copy of check value */
   this.total = 0;             /* protected copy of output count */
   // TODO: may be {}
@@ -31059,21 +31059,21 @@ function InflateState() {
 
   /* for string and stored block copying */
   this.length = 0;            /* literal or length of data to copy */
-  this.offset = 0;            /* distance back to copy string from */
+  this.offset = 0;            /* /distance back to copy string from */
 
   /* for table and code decoding */
   this.extra = 0;             /* extra bits needed */
 
   /* fixed and dynamic code tables */
   this.lencode = null;          /* starting table for length/literal codes */
-  this.distcode = null;         /* starting table for distance codes */
+  this./distcode = null;         /* starting table for /distance codes */
   this.lenbits = 0;           /* index bits for lencode */
-  this.distbits = 0;          /* index bits for distcode */
+  this./distbits = 0;          /* index bits for /distcode */
 
   /* dynamic table building */
   this.ncode = 0;             /* number of code length code lengths */
   this.nlen = 0;              /* number of length code lengths */
-  this.ndist = 0;             /* number of distance code lengths */
+  this.n/dist = 0;             /* number of /distance code lengths */
   this.have = 0;              /* number of code lengths in lens[] */
   this.next = null;              /* next available space in codes[] */
 
@@ -31081,13 +31081,13 @@ function InflateState() {
   this.work = new utils.Buf16(288); /* work area for code table building */
 
   /*
-   because we don't have pointers in js, we use lencode and distcode directly
+   because we don't have pointers in js, we use lencode and /distcode directly
    as buffers so we don't need codes
   */
   //this.codes = new utils.Buf32(ENOUGH);       /* space for code tables */
   this.lendyn = null;              /* dynamic table for length/literal codes (JS specific) */
-  this.distdyn = null;             /* dynamic table for distance codes (JS specific) */
-  this.sane = 0;                   /* if false, allow invalid distance too far */
+  this./distdyn = null;             /* dynamic table for /distance codes (JS specific) */
+  this.sane = 0;                   /* if false, allow invalid /distance too far */
   this.back = 0;                   /* bits back of last unprocessed length/lit */
   this.was = 0;                    /* initial length of match */
 }
@@ -31109,9 +31109,9 @@ function inflateResetKeep(strm) {
   state.head = null/*Z_NULL*/;
   state.hold = 0;
   state.bits = 0;
-  //state.lencode = state.distcode = state.next = state.codes;
+  //state.lencode = state./distcode = state.next = state.codes;
   state.lencode = state.lendyn = new utils.Buf32(ENOUGH_LENS);
-  state.distcode = state.distdyn = new utils.Buf32(ENOUGH_DISTS);
+  state./distcode = state./distdyn = new utils.Buf32(ENOUGH_/distS);
 
   state.sane = 1;
   state.back = -1;
@@ -31191,7 +31191,7 @@ function inflateInit(strm) {
 
 
 /*
- Return state with length and distance decoding tables and index sizes set to
+ Return state with length and /distance decoding tables and index sizes set to
  fixed code decoding.  Normally this returns fixed tables from inffixed.h.
  If BUILDFIXED is defined, then instead this routine builds the tables the
  first time it's called, and returns those tables the first time and
@@ -31202,7 +31202,7 @@ function inflateInit(strm) {
  */
 var virgin = true;
 
-var lenfix, distfix; // We have no pointers in JS, so keep tables separate
+var lenfix, /distfix; // We have no pointers in JS, so keep tables separate
 
 function fixedtables(state) {
   /* build fixed huffman tables if first call (may not be thread safe) */
@@ -31210,7 +31210,7 @@ function fixedtables(state) {
     var sym;
 
     lenfix = new utils.Buf32(512);
-    distfix = new utils.Buf32(32);
+    /distfix = new utils.Buf32(32);
 
     /* literal/length table */
     sym = 0;
@@ -31221,11 +31221,11 @@ function fixedtables(state) {
 
     inflate_table(LENS,  state.lens, 0, 288, lenfix,   0, state.work, { bits: 9 });
 
-    /* distance table */
+    /* /distance table */
     sym = 0;
     while (sym < 32) { state.lens[sym++] = 5; }
 
-    inflate_table(DISTS, state.lens, 0, 32,   distfix, 0, state.work, { bits: 5 });
+    inflate_table(/distS, state.lens, 0, 32,   /distfix, 0, state.work, { bits: 5 });
 
     /* do this just once */
     virgin = false;
@@ -31233,8 +31233,8 @@ function fixedtables(state) {
 
   state.lencode = lenfix;
   state.lenbits = 9;
-  state.distcode = distfix;
-  state.distbits = 5;
+  state./distcode = /distfix;
+  state./distbits = 5;
 }
 
 
@@ -31248,12 +31248,12 @@ function fixedtables(state) {
 
  Providing output buffers larger than 32K to inflate() should provide a speed
  advantage, since only the last 32K of output is copied to the sliding window
- upon return from inflate(), and since all distances after the first 32K of
+ upon return from inflate(), and since all /distances after the first 32K of
  output will fall in the output data, making match copies simpler and faster.
  The advantage may be dependent on the size of the processor's data caches.
  */
 function updatewindow(strm, src, end, copy) {
-  var dist;
+  var /dist;
   var state = strm.state;
 
   /* if it hasn't been done already, allocate space for the window */
@@ -31272,13 +31272,13 @@ function updatewindow(strm, src, end, copy) {
     state.whave = state.wsize;
   }
   else {
-    dist = state.wsize - state.wnext;
-    if (dist > copy) {
-      dist = copy;
+    /dist = state.wsize - state.wnext;
+    if (/dist > copy) {
+      /dist = copy;
     }
-    //zmemcpy(state->window + state->wnext, end - copy, dist);
-    utils.arraySet(state.window, src, end - copy, dist, state.wnext);
-    copy -= dist;
+    //zmemcpy(state->window + state->wnext, end - copy, /dist);
+    utils.arraySet(state.window, src, end - copy, /dist, state.wnext);
+    copy -= /dist;
     if (copy) {
       //zmemcpy(state->window, end - copy, copy);
       utils.arraySet(state.window, src, end - copy, copy, 0);
@@ -31286,9 +31286,9 @@ function updatewindow(strm, src, end, copy) {
       state.whave = state.wsize;
     }
     else {
-      state.wnext += dist;
+      state.wnext += /dist;
       if (state.wnext === state.wsize) { state.wnext = 0; }
-      if (state.whave < state.wsize) { state.whave += dist; }
+      if (state.whave < state.wsize) { state.whave += /dist; }
     }
   }
   return 0;
@@ -31802,7 +31802,7 @@ function inflate(strm, flush) {
         hold >>>= 5;
         bits -= 5;
         //---//
-        state.ndist = (hold & 0x1f)/*BITS(5)*/ + 1;
+        state.n/dist = (hold & 0x1f)/*BITS(5)*/ + 1;
         //--- DROPBITS(5) ---//
         hold >>>= 5;
         bits -= 5;
@@ -31813,8 +31813,8 @@ function inflate(strm, flush) {
         bits -= 4;
         //---//
 //#ifndef PKZIP_BUG_WORKAROUND
-        if (state.nlen > 286 || state.ndist > 30) {
-          strm.msg = 'too many length or distance symbols';
+        if (state.nlen > 286 || state.n/dist > 30) {
+          strm.msg = 'too many length or /distance symbols';
           state.mode = BAD;
           break;
         }
@@ -31863,7 +31863,7 @@ function inflate(strm, flush) {
         state.mode = CODELENS;
         /* falls through */
       case CODELENS:
-        while (state.have < state.nlen + state.ndist) {
+        while (state.have < state.nlen + state.n/dist) {
           for (;;) {
             here = state.lencode[hold & ((1 << state.lenbits) - 1)];/*BITS(state.lenbits)*/
             here_bits = here >>> 24;
@@ -31954,7 +31954,7 @@ function inflate(strm, flush) {
               bits -= 7;
               //---//
             }
-            if (state.have + copy > state.nlen + state.ndist) {
+            if (state.have + copy > state.nlen + state.n/dist) {
               strm.msg = 'invalid bit length repeat';
               state.mode = BAD;
               break;
@@ -31975,7 +31975,7 @@ function inflate(strm, flush) {
           break;
         }
 
-        /* build code tables -- note: do not change the lenbits or distbits
+        /* build code tables -- note: do not change the lenbits or /distbits
            values here (9 and 6) without reading the comments in inftrees.h
            concerning the ENOUGH constants, which depend on those values */
         state.lenbits = 9;
@@ -31993,19 +31993,19 @@ function inflate(strm, flush) {
           break;
         }
 
-        state.distbits = 6;
-        //state.distcode.copy(state.codes);
+        state./distbits = 6;
+        //state./distcode.copy(state.codes);
         // Switch to use dynamic table
-        state.distcode = state.distdyn;
-        opts = { bits: state.distbits };
-        ret = inflate_table(DISTS, state.lens, state.nlen, state.ndist, state.distcode, 0, state.work, opts);
+        state./distcode = state./distdyn;
+        opts = { bits: state./distbits };
+        ret = inflate_table(/distS, state.lens, state.nlen, state.n/dist, state./distcode, 0, state.work, opts);
         // We have separate tables & no pointers. 2 commented lines below not needed.
         // state.next_index = opts.table_index;
-        state.distbits = opts.bits;
-        // state.distcode = state.next;
+        state./distbits = opts.bits;
+        // state./distcode = state.next;
 
         if (ret) {
-          strm.msg = 'invalid distances set';
+          strm.msg = 'invalid /distances set';
           state.mode = BAD;
           break;
         }
@@ -32130,11 +32130,11 @@ function inflate(strm, flush) {
         }
         //Tracevv((stderr, "inflate:         length %u\n", state.length));
         state.was = state.length;
-        state.mode = DIST;
+        state.mode = /dist;
         /* falls through */
-      case DIST:
+      case /dist:
         for (;;) {
-          here = state.distcode[hold & ((1 << state.distbits) - 1)];/*BITS(state.distbits)*/
+          here = state./distcode[hold & ((1 << state./distbits) - 1)];/*BITS(state./distbits)*/
           here_bits = here >>> 24;
           here_op = (here >>> 16) & 0xff;
           here_val = here & 0xffff;
@@ -32152,7 +32152,7 @@ function inflate(strm, flush) {
           last_op = here_op;
           last_val = here_val;
           for (;;) {
-            here = state.distcode[last_val +
+            here = state./distcode[last_val +
                     ((hold & ((1 << (last_bits + last_op)) - 1))/*BITS(last.bits + last.op)*/ >> last_bits)];
             here_bits = here >>> 24;
             here_op = (here >>> 16) & 0xff;
@@ -32178,15 +32178,15 @@ function inflate(strm, flush) {
         //---//
         state.back += here_bits;
         if (here_op & 64) {
-          strm.msg = 'invalid distance code';
+          strm.msg = 'invalid /distance code';
           state.mode = BAD;
           break;
         }
         state.offset = here_val;
         state.extra = (here_op) & 15;
-        state.mode = DISTEXT;
+        state.mode = /distEXT;
         /* falls through */
-      case DISTEXT:
+      case /distEXT:
         if (state.extra) {
           //=== NEEDBITS(state.extra);
           n = state.extra;
@@ -32206,12 +32206,12 @@ function inflate(strm, flush) {
         }
 //#ifdef INFLATE_STRICT
         if (state.offset > state.dmax) {
-          strm.msg = 'invalid distance too far back';
+          strm.msg = 'invalid /distance too far back';
           state.mode = BAD;
           break;
         }
 //#endif
-        //Tracevv((stderr, "inflate:         distance %u\n", state.offset));
+        //Tracevv((stderr, "inflate:         /distance %u\n", state.offset));
         state.mode = MATCH;
         /* falls through */
       case MATCH:
@@ -32221,13 +32221,13 @@ function inflate(strm, flush) {
           copy = state.offset - copy;
           if (copy > state.whave) {
             if (state.sane) {
-              strm.msg = 'invalid distance too far back';
+              strm.msg = 'invalid /distance too far back';
               state.mode = BAD;
               break;
             }
 // (!) This block is disabled in zlib defaults,
 // don't enable it for binary compatibility
-//#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
+//#ifdef INFLATE_ALLOW_INVALID_/distANCE_TOOFAR_ARRR
 //          Trace((stderr, "inflate.c too far\n"));
 //          copy -= state.whave;
 //          if (copy > state.length) { copy = state.length; }
@@ -32487,7 +32487,7 @@ exports.inflateUndermine = inflateUndermine;
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -32496,14 +32496,14 @@ exports.inflateUndermine = inflateUndermine;
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 // See state defs from inflate.js
 var BAD = 30;       /* got a data error -- remain here until reset */
 var TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
 
 /*
-   Decode literal, length, and distance codes and write out the resulting
+   Decode literal, length, and /distance codes and write out the resulting
    literal and match bytes until either not enough input or output is
    available, an end-of-block is encountered, or a data error is encountered.
    When large enough input and output buffers are supplied to inflate(), for
@@ -32526,13 +32526,13 @@ var TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
 
    Notes:
 
-    - The maximum input bits used by a length/distance pair is 15 bits for the
-      length code, 5 bits for the length extra, 15 bits for the distance code,
-      and 13 bits for the distance extra.  This totals 48 bits, or six bytes.
+    - The maximum input bits used by a length//distance pair is 15 bits for the
+      length code, 5 bits for the length extra, 15 bits for the /distance code,
+      and 13 bits for the /distance extra.  This totals 48 bits, or six bytes.
       Therefore if strm.avail_in >= 6, then there is enough input to avoid
       checking for available input while decoding.
 
-    - The maximum bytes that a single length/distance pair can output is 258
+    - The maximum bytes that a single length//distance pair can output is 258
       bytes, which is the maximum length that can be coded.  inflate_fast()
       requires strm.avail_out >= 258 for each loop to avoid checking for
       output space.
@@ -32545,7 +32545,7 @@ module.exports = function inflate_fast(strm, start) {
   var beg;                    /* inflate()'s initial strm.output */
   var end;                    /* while out < end, enough space available */
 //#ifdef INFLATE_STRICT
-  var dmax;                   /* maximum distance from zlib header */
+  var dmax;                   /* maximum /distance from zlib header */
 //#endif
   var wsize;                  /* window size or zero if not using window */
   var whave;                  /* valid bytes in the window */
@@ -32555,14 +32555,14 @@ module.exports = function inflate_fast(strm, start) {
   var hold;                   /* local strm.hold */
   var bits;                   /* local strm.bits */
   var lcode;                  /* local strm.lencode */
-  var dcode;                  /* local strm.distcode */
+  var dcode;                  /* local strm./distcode */
   var lmask;                  /* mask for first level of length codes */
-  var dmask;                  /* mask for first level of distance codes */
+  var dmask;                  /* mask for first level of /distance codes */
   var here;                   /* retrieved table entry */
   var op;                     /* code bits, operation, extra bits, or */
                               /*  window position, window bytes to copy */
   var len;                    /* match length, unused bytes */
-  var dist;                   /* match distance */
+  var /dist;                   /* match /distance */
   var from;                   /* where to copy match from */
   var from_source;
 
@@ -32589,12 +32589,12 @@ module.exports = function inflate_fast(strm, start) {
   hold = state.hold;
   bits = state.bits;
   lcode = state.lencode;
-  dcode = state.distcode;
+  dcode = state./distcode;
   lmask = (1 << state.lenbits) - 1;
-  dmask = (1 << state.distbits) - 1;
+  dmask = (1 << state./distbits) - 1;
 
 
-  /* decode literals and length/distances until end-of-block or not enough
+  /* decode literals and length//distances until end-of-block or not enough
      input data or output space */
 
   top:
@@ -32641,15 +32641,15 @@ module.exports = function inflate_fast(strm, start) {
         }
         here = dcode[hold & dmask];
 
-        dodist:
+        do/dist:
         for (;;) { // goto emulation
           op = here >>> 24/*here.bits*/;
           hold >>>= op;
           bits -= op;
           op = (here >>> 16) & 0xff/*here.op*/;
 
-          if (op & 16) {                      /* distance base */
-            dist = here & 0xffff/*here.val*/;
+          if (op & 16) {                      /* /distance base */
+            /dist = here & 0xffff/*here.val*/;
             op &= 15;                       /* number of extra bits */
             if (bits < op) {
               hold += input[_in++] << bits;
@@ -32659,30 +32659,30 @@ module.exports = function inflate_fast(strm, start) {
                 bits += 8;
               }
             }
-            dist += hold & ((1 << op) - 1);
+            /dist += hold & ((1 << op) - 1);
 //#ifdef INFLATE_STRICT
-            if (dist > dmax) {
-              strm.msg = 'invalid distance too far back';
+            if (/dist > dmax) {
+              strm.msg = 'invalid /distance too far back';
               state.mode = BAD;
               break top;
             }
 //#endif
             hold >>>= op;
             bits -= op;
-            //Tracevv((stderr, "inflate:         distance %u\n", dist));
-            op = _out - beg;                /* max distance in output */
-            if (dist > op) {                /* see if copy from window */
-              op = dist - op;               /* distance back in window */
+            //Tracevv((stderr, "inflate:         /distance %u\n", /dist));
+            op = _out - beg;                /* max /distance in output */
+            if (/dist > op) {                /* see if copy from window */
+              op = /dist - op;               /* /distance back in window */
               if (op > whave) {
                 if (state.sane) {
-                  strm.msg = 'invalid distance too far back';
+                  strm.msg = 'invalid /distance too far back';
                   state.mode = BAD;
                   break top;
                 }
 
 // (!) This block is disabled in zlib defaults,
 // don't enable it for binary compatibility
-//#ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
+//#ifdef INFLATE_ALLOW_INVALID_/distANCE_TOOFAR_ARRR
 //                if (len <= op - whave) {
 //                  do {
 //                    output[_out++] = 0;
@@ -32694,7 +32694,7 @@ module.exports = function inflate_fast(strm, start) {
 //                  output[_out++] = 0;
 //                } while (--op > whave);
 //                if (op === 0) {
-//                  from = _out - dist;
+//                  from = _out - /dist;
 //                  do {
 //                    output[_out++] = output[from++];
 //                  } while (--len);
@@ -32711,7 +32711,7 @@ module.exports = function inflate_fast(strm, start) {
                   do {
                     output[_out++] = s_window[from++];
                   } while (--op);
-                  from = _out - dist;  /* rest from output */
+                  from = _out - /dist;  /* rest from output */
                   from_source = output;
                 }
               }
@@ -32730,7 +32730,7 @@ module.exports = function inflate_fast(strm, start) {
                     do {
                       output[_out++] = s_window[from++];
                     } while (--op);
-                    from = _out - dist;      /* rest from output */
+                    from = _out - /dist;      /* rest from output */
                     from_source = output;
                   }
                 }
@@ -32742,7 +32742,7 @@ module.exports = function inflate_fast(strm, start) {
                   do {
                     output[_out++] = s_window[from++];
                   } while (--op);
-                  from = _out - dist;  /* rest from output */
+                  from = _out - /dist;  /* rest from output */
                   from_source = output;
                 }
               }
@@ -32760,7 +32760,7 @@ module.exports = function inflate_fast(strm, start) {
               }
             }
             else {
-              from = _out - dist;          /* copy direct from output */
+              from = _out - /dist;          /* copy direct from output */
               do {                        /* minimum length is three */
                 output[_out++] = output[from++];
                 output[_out++] = output[from++];
@@ -32775,12 +32775,12 @@ module.exports = function inflate_fast(strm, start) {
               }
             }
           }
-          else if ((op & 64) === 0) {          /* 2nd level distance code */
+          else if ((op & 64) === 0) {          /* 2nd level /distance code */
             here = dcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
-            continue dodist;
+            continue do/dist;
           }
           else {
-            strm.msg = 'invalid distance code';
+            strm.msg = 'invalid /distance code';
             state.mode = BAD;
             break top;
           }
@@ -32839,7 +32839,7 @@ module.exports = function inflate_fast(strm, start) {
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -32848,18 +32848,18 @@ module.exports = function inflate_fast(strm, start) {
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 var utils = __webpack_require__(71);
 
 var MAXBITS = 15;
 var ENOUGH_LENS = 852;
-var ENOUGH_DISTS = 592;
-//var ENOUGH = (ENOUGH_LENS+ENOUGH_DISTS);
+var ENOUGH_/distS = 592;
+//var ENOUGH = (ENOUGH_LENS+ENOUGH_/distS);
 
 var CODES = 0;
 var LENS = 1;
-var DISTS = 2;
+var /distS = 2;
 
 var lbase = [ /* Length codes 257..285 base */
   3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31,
@@ -32871,13 +32871,13 @@ var lext = [ /* Length codes 257..285 extra */
   19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78
 ];
 
-var dbase = [ /* Distance codes 0..29 base */
+var dbase = [ /* /distance codes 0..29 base */
   1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193,
   257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145,
   8193, 12289, 16385, 24577, 0, 0
 ];
 
-var dext = [ /* Distance codes 0..29 extra */
+var dext = [ /* /distance codes 0..29 extra */
   16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22,
   23, 23, 24, 24, 25, 25, 26, 26, 27, 27,
   28, 28, 29, 29, 64, 64
@@ -33028,8 +33028,8 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
    entered in the tables.
 
    used keeps track of how many table entries have been allocated from the
-   provided *table space.  It is checked for LENS and DIST tables against
-   the constants ENOUGH_LENS and ENOUGH_DISTS to guard against changes in
+   provided *table space.  It is checked for LENS and /dist tables against
+   the constants ENOUGH_LENS and ENOUGH_/distS to guard against changes in
    the initial root table size constants.  See the comments in inftrees.h
    for more information.
 
@@ -33053,7 +33053,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
     extra_index -= 257;
     end = 256;
 
-  } else {                    /* DISTS */
+  } else {                    /* /distS */
     base = dbase;
     extra = dext;
     end = -1;
@@ -33072,7 +33072,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 
   /* check available table space */
   if ((type === LENS && used > ENOUGH_LENS) ||
-    (type === DISTS && used > ENOUGH_DISTS)) {
+    (type === /distS && used > ENOUGH_/distS)) {
     return 1;
   }
 
@@ -33144,7 +33144,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
       /* check for enough space */
       used += 1 << curr;
       if ((type === LENS && used > ENOUGH_LENS) ||
-        (type === DISTS && used > ENOUGH_DISTS)) {
+        (type === /distS && used > ENOUGH_/distS)) {
         return 1;
       }
 
@@ -33189,7 +33189,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
+// including commercial applications, and to alter it and re/distribute it
 // freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented; you must not
@@ -33198,7 +33198,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
-// 3. This notice may not be removed or altered from any source distribution.
+// 3. This notice may not be removed or altered from any source /distribution.
 
 module.exports = {
 
@@ -33981,10 +33981,10 @@ module.exports = {
 	/** @preserve
 	(c) 2012 by Cédric Mesnil. All rights reserved.
 
-	Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+	Re/distribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-	    - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-	    - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+	    - Re/distributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+	    - Re/distributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the /distribution.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	*/
@@ -36779,8 +36779,8 @@ var head = new r.Struct({
 // horizontal header
 var hhea = new r.Struct({
   version: r.int32,
-  ascent: r.int16, // Distance from baseline of highest ascender
-  descent: r.int16, // Distance from baseline of lowest descender
+  ascent: r.int16, // /distance from baseline of highest ascender
+  descent: r.int16, // /distance from baseline of lowest descender
   lineGap: r.int16, // Typographic line gap
   advanceWidthMax: r.uint16, // Maximum advance width value in 'hmtx' table
   minLeftSideBearing: r.int16, // Maximum advance width value in 'hmtx' table
@@ -37183,7 +37183,7 @@ versions[3] = versions[4] = versions[2];
 var post = new r.VersionedStruct(r.fixed32, {
   header: { // these fields exist at the top of all versions
     italicAngle: r.fixed32, // Italic angle in counter-clockwise degrees from the vertical.
-    underlinePosition: r.int16, // Suggested distance of the top of the underline from the baseline
+    underlinePosition: r.int16, // Suggested /distance of the top of the underline from the baseline
     underlineThickness: r.int16, // Suggested values for the underline thickness
     isFixedPitch: r.uint32, // Whether the font is monospaced
     minMemType42: r.uint32, // Minimum memory usage when a TrueType font is downloaded as a Type 42 font
@@ -39838,11 +39838,11 @@ function StateTable1() {
 }
 
 var BslnSubtable = new r.VersionedStruct('format', {
-  0: { // Distance-based, no mapping
+  0: { // /distance-based, no mapping
     deltas: new r.Array(r.int16, 32)
   },
 
-  1: { // Distance-based, with mapping
+  1: { // /distance-based, with mapping
     deltas: new r.Array(r.int16, 32),
     mappingData: new LookupTable(r.uint16)
   },
@@ -41974,7 +41974,7 @@ var OTMapping = {
   // abvf, abvm, abvs, akhn, blwf, blwm, blws, cfar, cjct, cpsp, falt, isol, jalt, ljmo, mset?
   // ltra, ltrm, nukt, pref, pres, pstf, psts, rand, rkrf, rphf, rtla, rtlm, size, tjmo, tnum?
   // unic, vatu, vhal, vjmo, vpal, vrt2
-  // dist -> trak table?
+  // /dist -> trak table?
   // kern, vkrn -> kern table
   // lfbd + opbd + rtbd -> opbd table?
   // mark, mkmk -> acnt table?
@@ -44886,7 +44886,7 @@ var IndicShaper = (_temp$2 = _class$6 = function (_DefaultShaper) {
 
     plan.addStage({
       local: ['init'],
-      global: ['pres', 'abvs', 'blws', 'psts', 'haln', 'dist', 'abvm', 'blwm', 'calt', 'clig']
+      global: ['pres', 'abvs', 'blws', 'psts', 'haln', '/dist', 'abvm', 'blwm', 'calt', 'clig']
     });
 
     // Setup the indic config for the selected script
@@ -45391,7 +45391,7 @@ function initialReordering(font, glyphs, plan) {
 
           // Mark the subsequent stuff with 'cfar'.  Used in Khmer.
           // Read the feature spec.
-          // This allows distinguishing the following cases with MS Khmer fonts:
+          // This allows /distinguishing the following cases with MS Khmer fonts:
           // U+1784,U+17D2,U+179A,U+17D2,U+1782
           // U+1784,U+17D2,U+1782,U+17D2,U+179A
           if (features.cfar) {
@@ -45813,7 +45813,7 @@ var UniversalShaper = (_temp$3 = _class$7 = function (_DefaultShaper) {
     // plan.addStage(['isol', 'init', 'medi', 'fina', 'med2', 'fin2', 'fin3'], false);
 
     // Standard topographic presentation and positional feature application
-    plan.addStage(['abvs', 'blws', 'pres', 'psts', 'dist', 'abvm', 'blwm']);
+    plan.addStage(['abvs', 'blws', 'pres', 'psts', '/dist', 'abvm', 'blwm']);
   };
 
   UniversalShaper.assignFeatures = function assignFeatures(plan, glyphs) {
@@ -58370,7 +58370,7 @@ module.exports = __webpack_require__(203).BrotliDecompressBuffer;
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -58687,7 +58687,7 @@ module.exports="W5/fcQLn5gKf2XUbAiQ1XULX+TZz6ADToDsgqk6qVfeC0e4m6OO2wcQ1J76ZBVRV
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -58943,7 +58943,7 @@ exports.lookupOffsets = new Uint16Array([
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -59009,7 +59009,7 @@ exports.kCopyRangeLut = [
    http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
+   /distributed under the License is /distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
@@ -59614,7 +59614,7 @@ module.exports = UnicodeTrie;
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 # software and associated documentation files (the "Software"), to deal in the Software 
 # without restriction, including without limitation the rights to use, copy, modify, merge, 
-# publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+# publish, /distribute, sublicense, and/or sell copies of the Software, and to permit persons 
 # to whom the Software is furnished to do so, subject to the following conditions:
 # 
 # The above copyright notice and this permission notice shall be included in all copies or 

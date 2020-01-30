@@ -15,10 +15,13 @@
 //url, nombre de la clase@nombre de la funcion que va a responder
 Route::get('/','NoticiaController@index');
 
-Route::get('/noticias/{id}','NoticiaController@show')->name('noticias.show');
+Route::get('/noticias/{id}','NoticiaController@show')->name('front.noticias.show');
 
 Route::get('/admin','AdminController@dashboard')->name('admin.dashboard');
 
 Auth::routes(['register'=>false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Atajo para establecer las 7 rutas basicas de un recurso
+Route::resource('/admin/noticias', 'Admin\NoticiaController');

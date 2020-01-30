@@ -23,13 +23,13 @@ declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
         mirror: ElementMirror;
         autoScroller: AutoScroller;
         delay: number | null;
-        minDistance: number;
+        min/distance: number;
         touchScrollAllowed: boolean;
         mirrorNeedsRevert: boolean;
         isInteracting: boolean;
         isDragging: boolean;
         isDelayEnded: boolean;
-        isDistanceSurpassed: boolean;
+        is/distanceSurpassed: boolean;
         delayTimeoutId: number | null;
         constructor(containerEl: HTMLElement);
         destroy(): void;
@@ -38,7 +38,7 @@ declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
         onPointerUp: (ev: PointerDragEvent) => void;
         startDelay(ev: PointerDragEvent): void;
         handleDelayEnd(ev: PointerDragEvent): void;
-        handleDistanceSurpassed(ev: PointerDragEvent): void;
+        handle/distanceSurpassed(ev: PointerDragEvent): void;
         tryStartDrag(ev: PointerDragEvent): void;
         tryStopDrag(ev: PointerDragEvent): void;
         stopDrag(ev: PointerDragEvent): void;
@@ -100,7 +100,7 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalDraggabl
     export interface ExternalDraggableSettings {
         eventData?: DragMetaGenerator;
         itemSelector?: string;
-        minDistance?: number;
+        min/distance?: number;
         longPressDelay?: number;
         appendTo?: HTMLElement;
     }

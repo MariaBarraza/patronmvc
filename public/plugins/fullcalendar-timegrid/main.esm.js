@@ -1300,7 +1300,7 @@ var TimeGridView$1 = /** @class */ (function (_super) {
             this.header.receiveProps({
                 dateProfile: dateProfile,
                 dates: dayTable.headerDates,
-                datesRepDistinctDays: true,
+                datesRep/distinctDays: true,
                 renderIntroHtml: this.renderHeadIntroHtml
             });
         }

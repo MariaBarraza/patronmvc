@@ -4,7 +4,7 @@ Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
 
-import { addWeeks, diffWeeks, DateProfileGenerator, createElement, listenBySelector, removeElement, computeRect, computeClippingRect, applyStyle, cssToStr, htmlEscape, FgEventRenderer, appendToElement, prependToElement, htmlToElement, FillRenderer, memoizeRendering, createFormatter, addDays, DateComponent, rangeContainsMarker, getDayClasses, findElements, PositionCache, buildGotoAnchorHtml, findChildren, insertAfterElement, intersectRanges, ScrollComponent, matchCellWidths, uncompensateScroll, compensateScroll, subtractInnerElHeight, distributeHeight, undistributeHeight, View, Slicer, memoize, DayHeader, DaySeries, DayTable, createPlugin } from '@fullcalendar/core';
+import { addWeeks, diffWeeks, DateProfileGenerator, createElement, listenBySelector, removeElement, computeRect, computeClippingRect, applyStyle, cssToStr, htmlEscape, FgEventRenderer, appendToElement, prependToElement, htmlToElement, FillRenderer, memoizeRendering, createFormatter, addDays, DateComponent, rangeContainsMarker, getDayClasses, findElements, PositionCache, buildGotoAnchorHtml, findChildren, insertAfterElement, intersectRanges, ScrollComponent, matchCellWidths, uncompensateScroll, compensateScroll, subtractInnerElHeight, /distributeHeight, un/distributeHeight, View, Slicer, memoize, DayHeader, DaySeries, DayTable, createPlugin } from '@fullcalendar/core';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1434,9 +1434,9 @@ var DayGridView = /** @class */ (function (_super) {
         dayGrid.removeSegPopover(); // kill the "more" popover if displayed
         // is the event limit a constant level number?
         if (eventLimit && typeof eventLimit === 'number') {
-            dayGrid.limitRows(eventLimit); // limit the levels first so the height can redistribute after
+            dayGrid.limitRows(eventLimit); // limit the levels first so the height can re/distribute after
         }
-        // distribute the height to the rows
+        // /distribute the height to the rows
         // (viewHeight is a "recommended" value if isAuto)
         scrollerHeight = this.computeScrollerHeight(viewHeight);
         this.setGridHeight(scrollerHeight, isAuto);
@@ -1471,14 +1471,14 @@ var DayGridView = /** @class */ (function (_super) {
             if (isAuto) {
                 height *= this.dayGrid.rowCnt / 6;
             }
-            distributeHeight(this.dayGrid.rowEls, height, !isAuto); // if auto, don't compensate for height-hogging rows
+            /distributeHeight(this.dayGrid.rowEls, height, !isAuto); // if auto, don't compensate for height-hogging rows
         }
         else {
             if (isAuto) {
-                undistributeHeight(this.dayGrid.rowEls); // let the rows be their natural height with no expanding
+                un/distributeHeight(this.dayGrid.rowEls); // let the rows be their natural height with no expanding
             }
             else {
-                distributeHeight(this.dayGrid.rowEls, height, true); // true = compensate for height-hogging rows
+                /distributeHeight(this.dayGrid.rowEls, height, true); // true = compensate for height-hogging rows
             }
         }
     };
@@ -1577,7 +1577,7 @@ var DayGridView$1 = /** @class */ (function (_super) {
             this.header.receiveProps({
                 dateProfile: dateProfile,
                 dates: dayTable.headerDates,
-                datesRepDistinctDays: dayTable.rowCnt === 1,
+                datesRep/distinctDays: dayTable.rowCnt === 1,
                 renderIntroHtml: this.renderHeadIntroHtml
             });
         }

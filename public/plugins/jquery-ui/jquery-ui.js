@@ -1652,7 +1652,7 @@ color.fn = jQuery.extend( color.prototype, {
 		} );
 		return used.pop();
 	},
-	transition: function( other, distance ) {
+	transition: function( other, /distance ) {
 		var end = color( other ),
 			spaceName = end._space(),
 			space = spaces[ spaceName ],
@@ -1683,7 +1683,7 @@ color.fn = jQuery.extend( color.prototype, {
 						startValue -= type.mod;
 					}
 				}
-				result[ index ] = clamp( ( endValue - startValue ) * distance + startValue, prop );
+				result[ index ] = clamp( ( endValue - startValue ) * /distance + startValue, prop );
 			}
 		} );
 		return this[ spaceName ]( result );
@@ -3003,7 +3003,7 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		hide = mode === "hide",
 		show = mode === "show",
 		direction = options.direction || "up",
-		distance = options.distance,
+		/distance = options./distance,
 		times = options.times || 5,
 
 		// Number of internal animations
@@ -3022,9 +3022,9 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 
 	refValue = element.css( ref );
 
-	// Default distance for the BIGGEST bounce is the outer Distance / 3
-	if ( !distance ) {
-		distance = element[ ref === "top" ? "outerHeight" : "outerWidth" ]() / 3;
+	// Default /distance for the BIGGEST bounce is the outer /distance / 3
+	if ( !/distance ) {
+		/distance = element[ ref === "top" ? "outerHeight" : "outerWidth" ]() / 3;
 	}
 
 	if ( show ) {
@@ -3035,13 +3035,13 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		// then do the "first" animation
 		element
 			.css( "opacity", 0 )
-			.css( ref, motion ? -distance * 2 : distance * 2 )
+			.css( ref, motion ? -/distance * 2 : /distance * 2 )
 			.animate( downAnim, speed, easing );
 	}
 
-	// Start at the smallest distance if we are hiding
+	// Start at the smallest /distance if we are hiding
 	if ( hide ) {
-		distance = distance / Math.pow( 2, times - 1 );
+		/distance = /distance / Math.pow( 2, times - 1 );
 	}
 
 	downAnim = {};
@@ -3050,19 +3050,19 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 	// Bounces up/down/left/right then back to 0 -- times * 2 animations happen here
 	for ( ; i < times; i++ ) {
 		upAnim = {};
-		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
+		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + /distance;
 
 		element
 			.animate( upAnim, speed, easing )
 			.animate( downAnim, speed, easing );
 
-		distance = hide ? distance * 2 : distance / 2;
+		/distance = hide ? /distance * 2 : /distance / 2;
 	}
 
 	// Last Bounce when Hiding
 	if ( hide ) {
 		upAnim = { opacity: 0 };
-		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
+		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + /distance;
 
 		element.animate( upAnim, speed, easing );
 	}
@@ -3143,7 +3143,7 @@ var effectsEffectClip = $.effects.define( "clip", "hide", function( options, don
 
 var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, done ) {
 
-	var distance,
+	var /distance,
 		element = $( this ),
 		mode = options.mode,
 		show = mode === "show",
@@ -3157,15 +3157,15 @@ var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, don
 
 	$.effects.createPlaceholder( element );
 
-	distance = options.distance ||
+	/distance = options./distance ||
 		element[ ref === "top" ? "outerHeight" : "outerWidth" ]( true ) / 2;
 
-	animation[ ref ] = motion + distance;
+	animation[ ref ] = motion + /distance;
 
 	if ( show ) {
 		element.css( animation );
 
-		animation[ ref ] = oppositeMotion + distance;
+		animation[ ref ] = oppositeMotion + /distance;
 		animation.opacity = 1;
 	}
 
@@ -3345,12 +3345,12 @@ var effectsEffectFold = $.effects.define( "fold", "hide", function( options, don
 		animation1 = { clip: $.extend( {}, start ) },
 		animation2 = { clip: $.extend( {}, start ) },
 
-		distance = [ start[ ref[ 0 ] ], start[ ref[ 1 ] ] ],
+		/distance = [ start[ ref[ 0 ] ], start[ ref[ 1 ] ] ],
 
 		queuelen = element.queue().length;
 
 	if ( percent ) {
-		size = parseInt( percent[ 1 ], 10 ) / 100 * distance[ hide ? 0 : 1 ];
+		size = parseInt( percent[ 1 ], 10 ) / 100 * /distance[ hide ? 0 : 1 ];
 	}
 	animation1.clip[ ref[ 0 ] ] = size;
 	animation2.clip[ ref[ 0 ] ] = size;
@@ -3744,7 +3744,7 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 	var i = 1,
 		element = $( this ),
 		direction = options.direction || "left",
-		distance = options.distance || 20,
+		/distance = options./distance || 20,
 		times = options.times || 3,
 		anims = times * 2 + 1,
 		speed = Math.round( options.duration / anims ),
@@ -3759,9 +3759,9 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 	$.effects.createPlaceholder( element );
 
 	// Animation
-	animation[ ref ] = ( positiveMotion ? "-=" : "+=" ) + distance;
-	animation1[ ref ] = ( positiveMotion ? "+=" : "-=" ) + distance * 2;
-	animation2[ ref ] = ( positiveMotion ? "-=" : "+=" ) + distance * 2;
+	animation[ ref ] = ( positiveMotion ? "-=" : "+=" ) + /distance;
+	animation1[ ref ] = ( positiveMotion ? "+=" : "-=" ) + /distance * 2;
+	animation2[ ref ] = ( positiveMotion ? "-=" : "+=" ) + /distance * 2;
 
 	// Animate
 	element.animate( animation, speed, options.easing );
@@ -3812,7 +3812,7 @@ var effectsEffectSlide = $.effects.define( "slide", "show", function( options, d
 		direction = options.direction || "left",
 		ref = ( direction === "up" || direction === "down" ) ? "top" : "left",
 		positiveMotion = ( direction === "up" || direction === "left" ),
-		distance = options.distance ||
+		/distance = options./distance ||
 			element[ ref === "top" ? "outerHeight" : "outerWidth" ]( true ),
 		animation = {};
 
@@ -3822,7 +3822,7 @@ var effectsEffectSlide = $.effects.define( "slide", "show", function( options, d
 	startRef = element.position()[ ref ];
 
 	// Define hide animation
-	animation[ ref ] = ( positiveMotion ? -1 : 1 ) * distance + startRef;
+	animation[ ref ] = ( positiveMotion ? -1 : 1 ) * /distance + startRef;
 	animation.clip = element.cssClip();
 	animation.clip[ map[ direction ][ 1 ] ] = animation.clip[ map[ direction ][ 0 ] ];
 
@@ -8964,7 +8964,7 @@ $.extend( Datepicker.prototype, {
 							( unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
 							( printDate.getTime() === today.getTime() ? " ui-state-highlight" : "" ) +
 							( printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "" ) + // highlight selected day
-							( otherMonth ? " ui-priority-secondary" : "" ) + // distinguish dates from other months
+							( otherMonth ? " ui-priority-secondary" : "" ) + // /distinguish dates from other months
 							"' href='#'>" + printDate.getDate() + "</a>" ) ) + "</td>"; // display selectable date
 						printDate.setDate( printDate.getDate() + 1 );
 						printDate = this._daylightSavingAdjust( printDate );
@@ -9296,7 +9296,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 	version: "1.12.1",
 	options: {
 		cancel: "input, textarea, button, select, option",
-		distance: 1,
+		/distance: 1,
 		delay: 0
 	},
 	_mouseInit: function() {
@@ -9360,7 +9360,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 			}, this.options.delay );
 		}
 
-		if ( this._mouseDistanceMet( event ) && this._mouseDelayMet( event ) ) {
+		if ( this._mouse/distanceMet( event ) && this._mouseDelayMet( event ) ) {
 			this._mouseStarted = ( this._mouseStart( event ) !== false );
 			if ( !this._mouseStarted ) {
 				event.preventDefault();
@@ -9428,7 +9428,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 			return event.preventDefault();
 		}
 
-		if ( this._mouseDistanceMet( event ) && this._mouseDelayMet( event ) ) {
+		if ( this._mouse/distanceMet( event ) && this._mouseDelayMet( event ) ) {
 			this._mouseStarted =
 				( this._mouseStart( this._mouseDownEvent, event ) !== false );
 			( this._mouseStarted ? this._mouseDrag( event ) : this._mouseUp( event ) );
@@ -9462,11 +9462,11 @@ var widgetsMouse = $.widget( "ui.mouse", {
 		event.preventDefault();
 	},
 
-	_mouseDistanceMet: function( event ) {
+	_mouse/distanceMet: function( event ) {
 		return ( Math.max(
 				Math.abs( this._mouseDownEvent.pageX - event.pageX ),
 				Math.abs( this._mouseDownEvent.pageY - event.pageY )
-			) >= this.options.distance
+			) >= this.options./distance
 		);
 	},
 
@@ -13524,7 +13524,7 @@ var widgetsSelectable = $.widget( "ui.selectable", $.ui.mouse, {
 	options: {
 		appendTo: "body",
 		autoRefresh: true,
-		distance: 0,
+		/distance: 0,
 		filter: "*",
 		tolerance: "touch",
 
@@ -14496,7 +14496,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 			// element, but worked best visually with a variety of themes
 			"ui-slider-range": "ui-corner-all ui-widget-header"
 		},
-		distance: 0,
+		/distance: 0,
 		max: 100,
 		min: 0,
 		orientation: "horizontal",
@@ -14627,7 +14627,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 	},
 
 	_mouseCapture: function( event ) {
-		var position, normValue, distance, closestHandle, index, allowed, offset, mouseOverHandle,
+		var position, normValue, /distance, closestHandle, index, allowed, offset, mouseOverHandle,
 			that = this,
 			o = this.options;
 
@@ -14643,13 +14643,13 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 
 		position = { x: event.pageX, y: event.pageY };
 		normValue = this._normValueFromMouse( position );
-		distance = this._valueMax() - this._valueMin() + 1;
+		/distance = this._valueMax() - this._valueMin() + 1;
 		this.handles.each( function( i ) {
-			var thisDistance = Math.abs( normValue - that.values( i ) );
-			if ( ( distance > thisDistance ) ||
-				( distance === thisDistance &&
+			var this/distance = Math.abs( normValue - that.values( i ) );
+			if ( ( /distance > this/distance ) ||
+				( /distance === this/distance &&
 					( i === that._lastChangedValue || that.values( i ) === o.min ) ) ) {
-				distance = thisDistance;
+				/distance = this/distance;
 				closestHandle = $( this );
 				index = i;
 			}
@@ -16135,7 +16135,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 	},
 
 	_contactContainers: function( event ) {
-		var i, j, dist, itemWithLeastDistance, posProperty, sizeProperty, cur, nearBottom,
+		var i, j, /dist, itemWithLeast/distance, posProperty, sizeProperty, cur, nearBottom,
 			floating, axis,
 			innermostContainer = null,
 			innermostIndex = null;
@@ -16185,10 +16185,10 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			}
 		} else {
 
-			// When entering a new container, we will find the item with the least distance and
+			// When entering a new container, we will find the item with the least /distance and
 			// append our item near it
-			dist = 10000;
-			itemWithLeastDistance = null;
+			/dist = 10000;
+			itemWithLeast/distance = null;
 			floating = innermostContainer.floating || this._isFloating( this.currentItem );
 			posProperty = floating ? "left" : "top";
 			sizeProperty = floating ? "width" : "height";
@@ -16210,15 +16210,15 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 					nearBottom = true;
 				}
 
-				if ( Math.abs( event[ axis ] - cur ) < dist ) {
-					dist = Math.abs( event[ axis ] - cur );
-					itemWithLeastDistance = this.items[ j ];
+				if ( Math.abs( event[ axis ] - cur ) < /dist ) {
+					/dist = Math.abs( event[ axis ] - cur );
+					itemWithLeast/distance = this.items[ j ];
 					this.direction = nearBottom ? "up" : "down";
 				}
 			}
 
 			//Check if dropOnEmpty is enabled
-			if ( !itemWithLeastDistance && !this.options.dropOnEmpty ) {
+			if ( !itemWithLeast/distance && !this.options.dropOnEmpty ) {
 				return;
 			}
 
@@ -16230,8 +16230,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				return;
 			}
 
-			itemWithLeastDistance ?
-				this._rearrange( event, itemWithLeastDistance, null, true ) :
+			itemWithLeast/distance ?
+				this._rearrange( event, itemWithLeast/distance, null, true ) :
 				this._rearrange( event, null, this.containers[ innermostIndex ].element, true );
 			this._trigger( "change", event, this._uiHash() );
 			this.containers[ innermostIndex ]._trigger( "change", event, this._uiHash( this ) );

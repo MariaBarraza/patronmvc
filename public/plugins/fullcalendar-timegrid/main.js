@@ -1303,7 +1303,7 @@ Docs & License: https://fullcalendar.io/
                 this.header.receiveProps({
                     dateProfile: dateProfile,
                     dates: dayTable.headerDates,
-                    datesRepDistinctDays: true,
+                    datesRep/distinctDays: true,
                     renderIntroHtml: this.renderHeadIntroHtml
                 });
             }

@@ -3,7 +3,7 @@
  * https://summernote.org
  *
  * Copyright 2013- Alan Hong. and other contributors
- * summernote may be freely distributed under the MIT license.
+ * summernote may be freely /distributed under the MIT license.
  *
  * Date: 2019-05-16T08:16Z
  */
@@ -7272,7 +7272,7 @@
       return AirPopover;
   }());
 
-  var POPOVER_DIST = 5;
+  var POPOVER_/dist = 5;
   var HintPopover = /** @class */ (function () {
       function HintPopover(context) {
           var _this = this;
@@ -7447,13 +7447,13 @@
                       if (this.direction === 'top') {
                           this.$popover.css({
                               left: bnd.left,
-                              top: bnd.top - this.$popover.outerHeight() - POPOVER_DIST
+                              top: bnd.top - this.$popover.outerHeight() - POPOVER_/dist
                           });
                       }
                       else {
                           this.$popover.css({
                               left: bnd.left,
-                              top: bnd.top + bnd.height + POPOVER_DIST
+                              top: bnd.top + bnd.height + POPOVER_/dist
                           });
                       }
                   }

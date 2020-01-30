@@ -1932,9 +1932,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/bootstrap/dist/js/bootstrap.js":
+/***/ "./node_modules/bootstrap//dist/js/bootstrap.js":
 /*!*****************************************************!*\
-  !*** ./node_modules/bootstrap/dist/js/bootstrap.js ***!
+  !*** ./node_modules/bootstrap//dist/js/bootstrap.js ***!
   \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1945,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")) :
+   true ? factory(exports, __webpack_require__(/*! jquery */ "./node_modules/jquery//dist/jquery.js"), __webpack_require__(/*! popper.js */ "./node_modules/popper.js//dist/esm/popper.js")) :
   undefined;
 }(this, (function (exports, $, Popper) { 'use strict';
 
@@ -6463,9 +6463,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js":
+/***/ "./node_modules/jquery//dist/jquery.js":
 /*!********************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js ***!
+  !*** ./node_modules/jquery//dist/jquery.js ***!
   \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -34189,9 +34189,9 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/popper.js/dist/esm/popper.js":
+/***/ "./node_modules/popper.js//dist/esm/popper.js":
 /*!***************************************************!*\
-  !*** ./node_modules/popper.js/dist/esm/popper.js ***!
+  !*** ./node_modules/popper.js//dist/esm/popper.js ***!
   \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -34207,7 +34207,7 @@ __webpack_require__.r(__webpack_exports__);
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * to use, copy, modify, merge, publish, /distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
@@ -36342,7 +36342,7 @@ var modifiers = {
     priority: ['left', 'right', 'top', 'bottom'],
     /**
      * @prop {number} padding=5
-     * Amount of pixel used to define a minimum distance between the boundaries
+     * Amount of pixel used to define a minimum /distance between the boundaries
      * and the popper. This makes sure the popper always has a little padding
      * between the edges of its container
      */
@@ -37441,9 +37441,9 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./node_modules/vue/dist/vue.common.dev.js":
+/***/ "./node_modules/vue//dist/vue.common.dev.js":
 /*!*************************************************!*\
-  !*** ./node_modules/vue/dist/vue.common.dev.js ***!
+  !*** ./node_modules/vue//dist/vue.common.dev.js ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -49413,15 +49413,15 @@ module.exports = Vue;
 
 /***/ }),
 
-/***/ "./node_modules/vue/dist/vue.common.js":
+/***/ "./node_modules/vue//dist/vue.common.js":
 /*!*********************************************!*\
-  !*** ./node_modules/vue/dist/vue.common.js ***!
+  !*** ./node_modules/vue//dist/vue.common.js ***!
   \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./vue.common.dev.js */ "./node_modules/vue/dist/vue.common.dev.js")
+  module.exports = __webpack_require__(/*! ./vue.common.dev.js */ "./node_modules/vue//dist/vue.common.dev.js")
 }
 
 
@@ -49505,7 +49505,7 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue//dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49544,10 +49544,10 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 try {
-  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js//dist/esm/popper.js")["default"];
+  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery//dist/jquery.js");
 
-  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap//dist/js/bootstrap.js");
 } catch (e) {}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

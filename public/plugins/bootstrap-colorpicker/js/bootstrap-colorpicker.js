@@ -1893,9 +1893,9 @@ convert.rgb.cmyk = function (rgb) {
 };
 
 /**
- * See https://en.m.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance
+ * See https://en.m.wikipedia.org/wiki/Euclidean_/distance#Squared_Euclidean_/distance
  * */
-function comparativeDistance(x, y) {
+function comparative/distance(x, y) {
 	return (
 		Math.pow(x[0] - y[0], 2) +
 		Math.pow(x[1] - y[1], 2) +
@@ -1909,19 +1909,19 @@ convert.rgb.keyword = function (rgb) {
 		return reversed;
 	}
 
-	var currentClosestDistance = Infinity;
+	var currentClosest/distance = Infinity;
 	var currentClosestKeyword;
 
 	for (var keyword in cssKeywords) {
 		if (cssKeywords.hasOwnProperty(keyword)) {
 			var value = cssKeywords[keyword];
 
-			// Compute comparative distance
-			var distance = comparativeDistance(rgb, value);
+			// Compute comparative /distance
+			var /distance = comparative/distance(rgb, value);
 
 			// Check if its less, if so set as closest
-			if (distance < currentClosestDistance) {
-				currentClosestDistance = distance;
+			if (/distance < currentClosest/distance) {
+				currentClosest/distance = /distance;
 				currentClosestKeyword = keyword;
 			}
 		}
@@ -5599,7 +5599,7 @@ function buildGraph() {
 		graph[models[i]] = {
 			// http://jsperf.com/1-vs-infinity
 			// micro-opt, but this is simple.
-			distance: -1,
+			/distance: -1,
 			parent: null
 		};
 	}
@@ -5612,7 +5612,7 @@ function deriveBFS(fromModel) {
 	var graph = buildGraph();
 	var queue = [fromModel]; // unshift -> queue -> pop
 
-	graph[fromModel].distance = 0;
+	graph[fromModel]./distance = 0;
 
 	while (queue.length) {
 		var current = queue.pop();
@@ -5622,8 +5622,8 @@ function deriveBFS(fromModel) {
 			var adjacent = adjacents[i];
 			var node = graph[adjacent];
 
-			if (node.distance === -1) {
-				node.distance = graph[current].distance + 1;
+			if (node./distance === -1) {
+				node./distance = graph[current]./distance + 1;
 				node.parent = current;
 				queue.unshift(adjacent);
 			}

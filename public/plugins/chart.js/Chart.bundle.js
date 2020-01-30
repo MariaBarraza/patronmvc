@@ -347,9 +347,9 @@ convert.rgb.cmyk = function (rgb) {
 };
 
 /**
- * See https://en.m.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance
+ * See https://en.m.wikipedia.org/wiki/Euclidean_/distance#Squared_Euclidean_/distance
  * */
-function comparativeDistance(x, y) {
+function comparative/distance(x, y) {
 	return (
 		Math.pow(x[0] - y[0], 2) +
 		Math.pow(x[1] - y[1], 2) +
@@ -363,19 +363,19 @@ convert.rgb.keyword = function (rgb) {
 		return reversed;
 	}
 
-	var currentClosestDistance = Infinity;
+	var currentClosest/distance = Infinity;
 	var currentClosestKeyword;
 
 	for (var keyword in colorName) {
 		if (colorName.hasOwnProperty(keyword)) {
 			var value = colorName[keyword];
 
-			// Compute comparative distance
-			var distance = comparativeDistance(rgb, value);
+			// Compute comparative /distance
+			var /distance = comparative/distance(rgb, value);
 
 			// Check if its less, if so set as closest
-			if (distance < currentClosestDistance) {
-				currentClosestDistance = distance;
+			if (/distance < currentClosest/distance) {
+				currentClosest/distance = /distance;
 				currentClosestKeyword = keyword;
 			}
 		}
@@ -1081,7 +1081,7 @@ function buildGraph() {
 		graph[models[i]] = {
 			// http://jsperf.com/1-vs-infinity
 			// micro-opt, but this is simple.
-			distance: -1,
+			/distance: -1,
 			parent: null
 		};
 	}
@@ -1094,7 +1094,7 @@ function deriveBFS(fromModel) {
 	var graph = buildGraph();
 	var queue = [fromModel]; // unshift -> queue -> pop
 
-	graph[fromModel].distance = 0;
+	graph[fromModel]./distance = 0;
 
 	while (queue.length) {
 		var current = queue.pop();
@@ -1104,8 +1104,8 @@ function deriveBFS(fromModel) {
 			var adjacent = adjacents[i];
 			var node = graph[adjacent];
 
-			if (node.distance === -1) {
-				node.distance = graph[current].distance + 1;
+			if (node./distance === -1) {
+				node./distance = graph[current]./distance + 1;
 				node.parent = current;
 				queue.unshift(adjacent);
 			}
@@ -4221,7 +4221,7 @@ var element_arc = core_element.extend({
 		if (vm) {
 			var pointRelativePosition = helpers$1.getAngleFromPoint(vm, {x: chartX, y: chartY});
 			var angle = pointRelativePosition.angle;
-			var distance = pointRelativePosition.distance;
+			var /distance = pointRelativePosition./distance;
 
 			// Sanitise angle range
 			var startAngle = vm.startAngle;
@@ -4238,7 +4238,7 @@ var element_arc = core_element.extend({
 
 			// Check if within the range of the open/close angle
 			var betweenAngles = (angle >= startAngle && angle <= endAngle);
-			var withinRadius = (distance >= vm.innerRadius && distance <= vm.outerRadius);
+			var withinRadius = (/distance >= vm.innerRadius && /distance <= vm.outerRadius);
 
 			return (betweenAngles && withinRadius);
 		}
@@ -6320,11 +6320,11 @@ var controller_polarArea = core_datasetController.extend({
 
 		// var negHalfPI = -0.5 * Math.PI;
 		var datasetStartAngle = opts.startAngle;
-		var distance = arc.hidden ? 0 : scale.getDistanceFromCenterForValue(dataset.data[index]);
+		var /distance = arc.hidden ? 0 : scale.get/distanceFromCenterForValue(dataset.data[index]);
 		var startAngle = me._starts[index];
 		var endAngle = startAngle + (arc.hidden ? 0 : me._angles[index]);
 
-		var resetRadius = animationOpts.animateScale ? 0 : scale.getDistanceFromCenterForValue(dataset.data[index]);
+		var resetRadius = animationOpts.animateScale ? 0 : scale.get/distanceFromCenterForValue(dataset.data[index]);
 		var options = arc._options || {};
 
 		helpers$1.extend(arc, {
@@ -6342,7 +6342,7 @@ var controller_polarArea = core_datasetController.extend({
 				x: centerX,
 				y: centerY,
 				innerRadius: 0,
-				outerRadius: reset ? resetRadius : distance,
+				outerRadius: reset ? resetRadius : /distance,
 				startAngle: reset && animationOpts.animateRotate ? datasetStartAngle : startAngle,
 				endAngle: reset && animationOpts.animateRotate ? datasetStartAngle : endAngle,
 				label: helpers$1.valueAtIndexOrDefault(labels, index, labels[index])
@@ -6750,11 +6750,11 @@ function getIntersectItems(chart, position) {
  * @param {Chart} chart - the chart to look at elements from
  * @param {object} position - the point to be nearest to
  * @param {boolean} intersect - if true, only consider items that intersect the position
- * @param {function} distanceMetric - function to provide the distance between points
+ * @param {function} /distanceMetric - function to provide the /distance between points
  * @return {ChartElement[]} the nearest items
  */
-function getNearestItems(chart, position, intersect, distanceMetric) {
-	var minDistance = Number.POSITIVE_INFINITY;
+function getNearestItems(chart, position, intersect, /distanceMetric) {
+	var min/distance = Number.POSITIVE_INFINITY;
 	var nearestItems = [];
 
 	parseVisibleItems(chart, function(element) {
@@ -6763,12 +6763,12 @@ function getNearestItems(chart, position, intersect, distanceMetric) {
 		}
 
 		var center = element.getCenterPoint();
-		var distance = distanceMetric(position, center);
-		if (distance < minDistance) {
+		var /distance = /distanceMetric(position, center);
+		if (/distance < min/distance) {
 			nearestItems = [element];
-			minDistance = distance;
-		} else if (distance === minDistance) {
-			// Can have multiple items at the same distance in which case we sort by size
+			min/distance = /distance;
+		} else if (/distance === min/distance) {
+			// Can have multiple items at the same /distance in which case we sort by size
 			nearestItems.push(element);
 		}
 	});
@@ -6777,11 +6777,11 @@ function getNearestItems(chart, position, intersect, distanceMetric) {
 }
 
 /**
- * Get a distance metric function for two points based on the
+ * Get a /distance metric function for two points based on the
  * axis mode setting
  * @param {string} axis - the axis mode. x|y|xy
  */
-function getDistanceMetricForAxis(axis) {
+function get/distanceMetricForAxis(axis) {
 	var useX = axis.indexOf('x') !== -1;
 	var useY = axis.indexOf('y') !== -1;
 
@@ -6796,8 +6796,8 @@ function indexMode(chart, e, options) {
 	var position = getRelativePosition(e, chart);
 	// Default axis for index mode is 'x' to match old behaviour
 	options.axis = options.axis || 'x';
-	var distanceMetric = getDistanceMetricForAxis(options.axis);
-	var items = options.intersect ? getIntersectItems(chart, position) : getNearestItems(chart, position, false, distanceMetric);
+	var /distanceMetric = get/distanceMetricForAxis(options.axis);
+	var items = options.intersect ? getIntersectItems(chart, position) : getNearestItems(chart, position, false, /distanceMetric);
 	var elements = [];
 
 	if (!items.length) {
@@ -6878,8 +6878,8 @@ var core_interaction = {
 		dataset: function(chart, e, options) {
 			var position = getRelativePosition(e, chart);
 			options.axis = options.axis || 'xy';
-			var distanceMetric = getDistanceMetricForAxis(options.axis);
-			var items = options.intersect ? getIntersectItems(chart, position) : getNearestItems(chart, position, false, distanceMetric);
+			var /distanceMetric = get/distanceMetricForAxis(options.axis);
+			var items = options.intersect ? getIntersectItems(chart, position) : getNearestItems(chart, position, false, /distanceMetric);
 
 			if (items.length > 0) {
 				items = chart.getDatasetMeta(items[0]._datasetIndex).data;
@@ -6922,8 +6922,8 @@ var core_interaction = {
 		nearest: function(chart, e, options) {
 			var position = getRelativePosition(e, chart);
 			options.axis = options.axis || 'xy';
-			var distanceMetric = getDistanceMetricForAxis(options.axis);
-			return getNearestItems(chart, position, options.intersect, distanceMetric);
+			var /distanceMetric = get/distanceMetricForAxis(options.axis);
+			return getNearestItems(chart, position, options.intersect, /distanceMetric);
 		},
 
 		/**
@@ -7708,7 +7708,7 @@ var platform_dom$2 = {
 	/**
 	 * When `true`, prevents the automatic injection of the stylesheet required to
 	 * correctly detect when the chart is added to the DOM and then resized. This
-	 * switch has been added to allow external stylesheet (`dist/Chart(.min)?.js`)
+	 * switch has been added to allow external stylesheet (`/dist/Chart(.min)?.js`)
 	 * to be manually imported to make this library compatible with any CSP.
 	 * See https://github.com/chartjs/Chart.js/issues/5208
 	 */
@@ -8260,17 +8260,17 @@ var positioners = {
 	nearest: function(elements, eventPosition) {
 		var x = eventPosition.x;
 		var y = eventPosition.y;
-		var minDistance = Number.POSITIVE_INFINITY;
+		var min/distance = Number.POSITIVE_INFINITY;
 		var i, len, nearestElement;
 
 		for (i = 0, len = elements.length; i < len; ++i) {
 			var el = elements[i];
 			if (el && el.hasValue()) {
 				var center = el.getCenterPoint();
-				var d = helpers$1.distanceBetweenPoints(eventPosition, center);
+				var d = helpers$1./distanceBetweenPoints(eventPosition, center);
 
-				if (d < minDistance) {
-					minDistance = d;
+				if (d < min/distance) {
+					min/distance = d;
 					nearestElement = el;
 				}
 			}
@@ -10407,11 +10407,11 @@ var core_helpers = function() {
 
 	// Gets the angle from vertical upright to the point about a centre.
 	helpers$1.getAngleFromPoint = function(centrePoint, anglePoint) {
-		var distanceFromXCenter = anglePoint.x - centrePoint.x;
-		var distanceFromYCenter = anglePoint.y - centrePoint.y;
-		var radialDistanceFromCenter = Math.sqrt(distanceFromXCenter * distanceFromXCenter + distanceFromYCenter * distanceFromYCenter);
+		var /distanceFromXCenter = anglePoint.x - centrePoint.x;
+		var /distanceFromYCenter = anglePoint.y - centrePoint.y;
+		var radial/distanceFromCenter = Math.sqrt(/distanceFromXCenter * /distanceFromXCenter + /distanceFromYCenter * /distanceFromYCenter);
 
-		var angle = Math.atan2(distanceFromYCenter, distanceFromXCenter);
+		var angle = Math.atan2(/distanceFromYCenter, /distanceFromXCenter);
 
 		if (angle < (-0.5 * Math.PI)) {
 			angle += 2.0 * Math.PI; // make sure the returned angle is in the range of (-PI/2, 3PI/2]
@@ -10419,10 +10419,10 @@ var core_helpers = function() {
 
 		return {
 			angle: angle,
-			distance: radialDistanceFromCenter
+			/distance: radial/distanceFromCenter
 		};
 	};
-	helpers$1.distanceBetweenPoints = function(pt1, pt2) {
+	helpers$1./distanceBetweenPoints = function(pt1, pt2) {
 		return Math.sqrt(Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2));
 	};
 
@@ -13485,7 +13485,7 @@ function fitWithPointLabels(scale) {
 	// After finding the largest index and angle we calculate how much we need to remove
 	// from the shape radius to move the point inwards by that x.
 	//
-	// We average the left and right distances to get the maximum shape radius that can fit in the box
+	// We average the left and right /distances to get the maximum shape radius that can fit in the box
 	// along with labels.
 	//
 	// Once we have that, we can find the centre point for the chart, by taking the x text protrusion
@@ -13585,7 +13585,7 @@ function drawPointLabels(scale) {
 	var opts = scale.options;
 	var pointLabelOpts = opts.pointLabels;
 	var tickBackdropHeight = getTickBackdropHeight(opts);
-	var outerDistance = scale.getDistanceFromCenterForValue(opts.ticks.reverse ? scale.min : scale.max);
+	var outer/distance = scale.get/distanceFromCenterForValue(opts.ticks.reverse ? scale.min : scale.max);
 	var plFont = helpers$1.options._parseFont(pointLabelOpts);
 
 	ctx.save();
@@ -13596,7 +13596,7 @@ function drawPointLabels(scale) {
 	for (var i = scale.chart.data.labels.length - 1; i >= 0; i--) {
 		// Extra pixels out for some label spacing
 		var extra = (i === 0 ? tickBackdropHeight / 2 : 0);
-		var pointLabelPosition = scale.getPointPosition(i, outerDistance + extra + 5);
+		var pointLabelPosition = scale.getPointPosition(i, outer/distance + extra + 5);
 
 		// Keep this in loop since we may support array properties here
 		var pointLabelFontColor = valueAtIndexOrDefault$1(pointLabelOpts.fontColor, i, core_defaults.global.defaultFontColor);
@@ -13773,7 +13773,7 @@ var scale_radialLinear = scale_linearbase.extend({
 		return (angle < 0 ? angle + 360 : angle) * Math.PI * 2 / 360;
 	},
 
-	getDistanceFromCenterForValue: function(value) {
+	get/distanceFromCenterForValue: function(value) {
 		var me = this;
 
 		if (helpers$1.isNullOrUndef(value)) {
@@ -13788,17 +13788,17 @@ var scale_radialLinear = scale_linearbase.extend({
 		return (value - me.min) * scalingFactor;
 	},
 
-	getPointPosition: function(index, distanceFromCenter) {
+	getPointPosition: function(index, /distanceFromCenter) {
 		var me = this;
 		var thisAngle = me.getIndexAngle(index) - (Math.PI / 2);
 		return {
-			x: Math.cos(thisAngle) * distanceFromCenter + me.xCenter,
-			y: Math.sin(thisAngle) * distanceFromCenter + me.yCenter
+			x: Math.cos(thisAngle) * /distanceFromCenter + me.xCenter,
+			y: Math.sin(thisAngle) * /distanceFromCenter + me.yCenter
 		};
 	},
 
 	getPointPositionForValue: function(index, value) {
-		return this.getPointPosition(index, this.getDistanceFromCenterForValue(value));
+		return this.getPointPosition(index, this.get/distanceFromCenterForValue(value));
 	},
 
 	getBasePosition: function(index) {
@@ -13833,7 +13833,7 @@ var scale_radialLinear = scale_linearbase.extend({
 		if (gridLineOpts.display) {
 			helpers$1.each(me.ticks, function(label, index) {
 				if (index !== 0) {
-					offset = me.getDistanceFromCenterForValue(me.ticksAsNumbers[index]);
+					offset = me.get/distanceFromCenterForValue(me.ticksAsNumbers[index]);
 					drawRadiusLine(me, gridLineOpts, offset, index);
 				}
 			});
@@ -13849,7 +13849,7 @@ var scale_radialLinear = scale_linearbase.extend({
 			}
 
 			for (i = me.chart.data.labels.length - 1; i >= 0; i--) {
-				offset = me.getDistanceFromCenterForValue(opts.ticks.reverse ? me.min : me.max);
+				offset = me.get/distanceFromCenterForValue(opts.ticks.reverse ? me.min : me.max);
 				position = me.getPointPosition(i, offset);
 				ctx.beginPath();
 				ctx.moveTo(me.xCenter, me.yCenter);
@@ -13891,7 +13891,7 @@ var scale_radialLinear = scale_linearbase.extend({
 				return;
 			}
 
-			offset = me.getDistanceFromCenterForValue(me.ticksAsNumbers[index]);
+			offset = me.get/distanceFromCenterForValue(me.ticksAsNumbers[index]);
 
 			if (tickOpts.showLabelBackdrop) {
 				width = ctx.measureText(label).width;
@@ -14016,14 +14016,14 @@ function getMax(options) {
  * to create the lookup table. The table ALWAYS contains at least two items: min and max.
  *
  * @param {number[]} timestamps - timestamps sorted from lowest to highest.
- * @param {string} distribution - If 'linear', timestamps will be spread linearly along the min
+ * @param {string} /distribution - If 'linear', timestamps will be spread linearly along the min
  * and max range, so basically, the table will contains only two items: {min, 0} and {max, 1}.
- * If 'series', timestamps will be positioned at the same distance from each other. In this
+ * If 'series', timestamps will be positioned at the same /distance from each other. In this
  * case, only timestamps that break the time linearity are registered, meaning that in the
  * best case, all timestamps are linear, the table contains only min and max.
  */
-function buildLookupTable(timestamps, min, max, distribution) {
-	if (distribution === 'linear' || !timestamps.length) {
+function buildLookupTable(timestamps, min, max, /distribution) {
+	if (/distribution === 'linear' || !timestamps.length) {
 		return [
 			{time: min, pos: 0},
 			{time: max, pos: 1}
@@ -14311,13 +14311,13 @@ var defaultConfig$4 = {
 	position: 'bottom',
 
 	/**
-	 * Data distribution along the scale:
-	 * - 'linear': data are spread according to their time (distances can vary),
-	 * - 'series': data are spread at the same distance from each other.
+	 * Data /distribution along the scale:
+	 * - 'linear': data are spread according to their time (/distances can vary),
+	 * - 'series': data are spread at the same /distance from each other.
 	 * @see https://github.com/chartjs/Chart.js/pull/4507
 	 * @since 2.7.0
 	 */
-	distribution: 'linear',
+	/distribution: 'linear',
 
 	/**
 	 * Scale boundary strategy (bypassed by min/max time options)
@@ -14478,10 +14478,10 @@ var scale_time = core_scale.extend({
 		var ticks = [];
 		var capacity = me.getLabelCapacity(min);
 		var source = tickOpts.source;
-		var distribution = options.distribution;
+		var /distribution = options./distribution;
 		var i, ilen, timestamp;
 
-		if (source === 'data' || (source === 'auto' && distribution === 'series')) {
+		if (source === 'data' || (source === 'auto' && /distribution === 'series')) {
 			timestamps = timestamps.data;
 		} else if (source === 'labels') {
 			timestamps = timestamps.labels;
@@ -14517,7 +14517,7 @@ var scale_time = core_scale.extend({
 			: determineUnitForFormatting(me, ticks.length, timeOpts.minUnit, me.min, me.max));
 		me._majorUnit = !tickOpts.major.enabled || me._unit === 'year' ? undefined
 			: determineMajorUnit(me._unit);
-		me._table = buildLookupTable(me._timestamps.data, min, max, distribution);
+		me._table = buildLookupTable(me._timestamps.data, min, max, /distribution);
 		me._offsets = computeOffsets(me._table, ticks, min, max, options);
 
 		if (tickOpts.reverse) {
@@ -18035,7 +18035,7 @@ var moment = createCommonjsModule(function (module, exports) {
      * Return a human readable representation of a moment that can
      * also be evaluated to get a new moment which is the same
      *
-     * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
+     * @link https://nodejs.org//dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
      */
     function inspect () {
         if (!this.isValid()) {
